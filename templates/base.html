@@ -37,7 +37,7 @@
 
       <!-- Sección menú -->
       <li>
-       <a href="#">
+       <a href="{{ url_for('menu') }}">
          <i class='bx bx-food-menu' ></i>
          <span class="links_name">Carta</span>
        </a>
@@ -55,7 +55,7 @@
 
      <!-- Sección lista de deseos -->
      <li>
-       <a href="#">
+       <a href="{{ url_for('lista') }}">
          <i class='bx bx-heart-circle'></i>
          <span class="links_name">Lista de deseos</span>
        </a>
@@ -64,7 +64,7 @@
 
      <!-- Sección compras -->
      <li>
-       <a href="#">
+       <a href="{{ url_for('carrito') }}">
          <i class='bx bx-cart' ></i>
          <span class="links_name">Carrito de compras</span>
        </a>
@@ -73,7 +73,7 @@
 
      <!-- Sección ajustes de visualización -->
      <li>
-       <a href="#">
+       <a href="{{ url_for('ajustes') }}">
          <i class='bx bx-cog' ></i>
          <span class="links_name">Ajustes</span>
        </a>
@@ -83,9 +83,7 @@
     <!-- Sección logo e info del grupo -->
     <li class="profile">
         <div class="profile-details">
-        	<a href="https://www.uninorte.edu.co/?gclid=Cj0KCQjw1ouKBhC5ARIsAHXNMI_Aict3_v3pN2Q2l06Zwlr-gtw_h8e3FMC6CQUWS_HpQAXBd8l5vC4aArtEEALw_wcB">
-           	<img src="{{ url_for('static', filename='images/uninorte.png')}}" alt="profileImg" >
-         	</a>
+           	<img src="{{ url_for('static', filename='images/uninorte.png')}}" alt="profileImg">
            	<div class="name_job">
              	<div class="name">Grupo 4</div>
              	<div class="uni">Uninorte-Mintic</div>

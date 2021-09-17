@@ -14,6 +14,18 @@ def home():
 def lista():
 	return render_template("listadeseos.html")
 
+@app.route("/ajustes")
+def ajustes():
+	return render_template("ajustes.html")
+
+@app.route("/carrito-de-compras")
+def carrito():
+	return render_template("carrito.html")
+
+@app.route("/menu")
+def menu():
+	return render_template("carta.html")
+
 '''
 @app.route('/login', methods=['GET', 'POST'])
 def login():
