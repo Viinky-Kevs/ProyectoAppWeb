@@ -5,6 +5,18 @@ import bcrypt
 app = Flask(__name__)
 app.secret_key = "Pruebadecontraseñasecretacualquiera"
 
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'dbpos'
+
+#Objeto MySQL
+mysql = MySQL(app)
+
+#Encriptamiento
+encript = bcrypt.gensalt()
+
+#Definición de rutas
 @app.route("/")
 def home():
 	return render_template("index.html")
