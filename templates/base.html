@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css') }}">
+    <!-- Boxicons.com Iconos (utilizar font)-->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.ico') }}" sizes="16x16" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bx-restaurant' ></i>
+        <div class="logo_name">Restaurante</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+
+    <ul class="nav-list">
+
+      	<!-- Sección buscar -->
+      <li>
+          <i class='bx bx-search' ></i>
+         <input type="text" placeholder="Buscar...">
+         <span class="tooltip">Buscar</span>
+      </li>
+
+      <!-- Sección inicio -->
+      <li>
+        <a href="{{ url_for('home') }}">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Inicio</span>
+        </a>
+         <span class="tooltip">Inicio</span>
+      </li>
+
+      <!-- Sección menú -->
+      <li>
+       <a href="#">
+         <i class='bx bx-food-menu' ></i>
+         <span class="links_name">Carta</span>
+       </a>
+       <span class="tooltip">Carta</span>
+     </li>
+
+    <!-- Sección para iniciar sesión -->
+     <li>
+       <a href="#">
+         <i class='bx bx-user' ></i>
+         <span class="links_name">Iniciar Sesión</span>
+       </a>
+       <span class="tooltip">Iniciar Sesión</span>
+     </li>
+
+     <!-- Sección lista de deseos -->
+     <li>
+       <a href="#">
+         <i class='bx bx-heart-circle'></i>
+         <span class="links_name">Lista de deseos</span>
+       </a>
+       <span class="tooltip">Lista</span>
+     </li>
+
+     <!-- Sección compras -->
+     <li>
+       <a href="#">
+         <i class='bx bx-cart' ></i>
+         <span class="links_name">Carrito de compras</span>
+       </a>
+       <span class="tooltip">Carrito</span>
+     </li>
+
+     <!-- Sección ajustes de visualización -->
+     <li>
+       <a href="#">
+         <i class='bx bx-cog' ></i>
+         <span class="links_name">Ajustes</span>
+       </a>
+       <span class="tooltip">Ajustes</span>
+     </li>
+
+    <!-- Sección logo e info del grupo -->
+    <li class="profile">
+        <div class="profile-details">
+        	<a href="https://www.uninorte.edu.co/?gclid=Cj0KCQjw1ouKBhC5ARIsAHXNMI_Aict3_v3pN2Q2l06Zwlr-gtw_h8e3FMC6CQUWS_HpQAXBd8l5vC4aArtEEALw_wcB">
+           	<img src="{{ url_for('static', filename='images/uninorte.png')}}" alt="profileImg" >
+         	</a>
+           	<div class="name_job">
+             	<div class="name">Grupo 4</div>
+             	<div class="uni">Uninorte-Mintic</div>
+           	</div>
+        </div>
+         
+        <a href="https://github.com/Viinky-Kevs/ProyectoAppWeb">
+        	<i class='bx bxl-github' id="github" ></i>
+        </a>
+         
+    </li>
+    </ul>
+  </div>
+  <section class="home-section">
+  	{% block content %}
+
+  	{% endblock %}
+  </section>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='javascript/script_base.js') }}"></script>
+
+</body>
+</html>
