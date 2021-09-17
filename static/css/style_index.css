@@ -196,16 +196,16 @@
   margin-right: 10px;
 }
 .sidebar li.profile .name,
-.sidebar li.profile .job{
+.sidebar li.profile .uni{
   font-size: 15px;
   font-weight: 400;
   color: #800000;
   white-space: nowrap;
 }
-.sidebar li.profile .job{
+.sidebar li.profile .uni{
   font-size: 12px;
 }
-.sidebar .profile #log_out{
+.sidebar .profile #github{
   position: absolute;
   top: 50%;
   right: 0;
@@ -217,7 +217,7 @@
   border-radius: 0px;
   transition: all 0.5s ease;
 }
-.sidebar.open .profile #log_out{
+.sidebar.open .profile #github{
   width: 50px;
   background: none;
 }
