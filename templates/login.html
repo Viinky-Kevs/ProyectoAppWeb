@@ -2,6 +2,41 @@
 
 {% block title %} Inicio-Sesion {% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_login') }}">
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='javascript/script_login') }}"></script>
+{% endblock %}
+
 {% block content %}
-    
+<div class="login-page">
+  <div class="form">
+    <form class="register-form" action="/registrar" method="POST">
+      <input type="email" name="nmCorreoRegistro" required placeholder="Correo" />
+      <input type="password" name="nmContrasenaRegistro" required placeholder="Contraseña"/>
+      <input type="text" name="nmNombreRegistro" required placeholder="Nombre"/>
+      <button>Crear</button>
+      <p class="message"> ¿Ya tienes cuenta? <a href="#">Iniciar Sesión</a></p>
+    </form>
+    <form class="login-form" action="/login" method="POST">
+      <input type="text" name="nmCorreoLogin" required placeholder="Correo"/>
+      <input type="password" name="nmContrasenaLogin" required placeholder="Contraseña"/>
+      <button>Iniciar Sesión</button>
+      <p class="message">¿No tienes cuenta? <a href="#">Crer cuenta</a></p>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+  </div>
+</div>
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session
+from flask import Flask, redirect, url_for, render_template, request, session, flash
 from flask_mysqldb import MySQL
 import bcrypt
 
@@ -108,7 +108,11 @@ def login():
 			flash("El correo no existe", "alert-warning")
 			return render_template("login.html")
 
-	
+@app.route("/logout")
+def cerrar_sesion():
+	session.clear()
+	return redirect(url_for('home'))
+
 
 if __name__ == "__main__":
 	app.run(debug = True)
