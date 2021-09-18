@@ -92,14 +92,14 @@ def registrar():
 
 @app.route("/inicio-de-sesion", methods=['POST','GET'])
 def login():
-	form = LoginForm()
+	loginform = LoginForm()
 	if loginform.validate_on_submit():
 		user = User.query.filter_by(username=loginform.username.data).first()
 		if user:
 			if bcrypt.check_password_hash(user.password, loginform.password.data):
 				login_user(user)
-				return redirect(url_for("dashboard"))
-	return render_template("login.html", form = form)
+				return redirect(url_for("home"))
+	return render_template("login.html", form = loginform)
 
 @app.route("/logout", methods=['POST','GET'])
 @login_required
