@@ -3,5 +3,17 @@
 {% block title %} RegistroU {% endblock %}
 
 {% block content %}
-    
+<div class="login-page">
+  <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.username }}
+      {{ form.password }}
+      {{ form.submit }}
+  </form>
+  <div class="login_href">
+  	<a href="{{ url_for('login') }}">
+  		¿Ya tienes una cuenta? Inicia Sesión
+  	</a>
+  </div>
+</div>    
 {% endblock %}

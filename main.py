@@ -1,20 +1,61 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
-from flask_mysqldb import MySQL
-import bcrypt
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import InputRequired, Length, ValidationError
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-app.secret_key = "Pruebadecontraseñasecretacualquiera"
+#app.secret_key = "Pruebadecontraseñasecretacualquiera"
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'dbpos'
+#Database
+database = SQLAlchemy(app)
 
-#Objeto MySQL
-mysql = MySQL(app)
+#Encriptado
+bcrypt = Bcrypt(app)
 
-#Encriptamiento
-encript = bcrypt.gensalt()
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SECRET_KEY'] = 'thisisasecretkey'
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+@login_manager.user_loader
+def load_user(user_id):
+	return User.query.get(int(user_id))
+
+class User(database.Model, UserMixin):
+	id = database.Column(database.Integer, primary_key=True)
+	username = database.Column(database.String(20), nullable=False, unique=True)
+	password = database.Column(database.String(80), nullable=False)
+
+class RegisterForm(FlaskForm):
+	username = StringField(validators=[InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder":"Usuario"})
+	password = PasswordField(validators=[InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder":"Contraseña"})
+	submit = SubmitField("Registrar")
+
+	def validate_username(self, username):
+		existing_user_username = User.query.filter_by(username=username.data).first()
+		if existing_user_username:
+			raise ValidationError("That username already exists. Please choose a different one.")
+
+	def validate_email(self, email):
+		existing_user_email = User.query.filter_by(email=email.data).first()
+		if existing_user_email:
+			raise ValidationError("That email address belongs to different user. Please choose a different one.")
+
+
+class LoginForm(FlaskForm):
+    username = StringField("Username", validators=[InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Usuario"})
+    password = PasswordField("Password", validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Contraseña"})
+    submit = SubmitField("Iniciar Sesión")
+
+    def validate_username(self, username):
+        username = User.query.filter_by(username=username.data).first()
+        if not username:
+            raise ValidationError('Account does not exists.')
 
 #Definición de rutas
 @app.route("/")
@@ -39,78 +80,31 @@ def menu():
 
 @app.route("/registrar-usuario", methods=['POST','GET'])
 def registrar():
-	if request.method == "GET":
-		return render_template("login.html")
-	else:
-		#Obtención datos
-		nombre = request.form['nmNombreRegistro']
-		correo = request.form['nmCorreoRegistro']
-		contrasena = request.form['nmContrasenaRegistro']
-		contrasena_encode = contrasena.encode("utf-8")
-		contrasena_encriptada = bcrypt.hashpw(contrasena_encode, encript)
+	form = RegisterForm()
+	if form.validate_on_submit():
+		hashed_password = bcrypt.generate_password_hash(form.password.data)
+		new_user = User(username=form.username.data, password=hashed_password)
+		database.session.add(new_user)
+		database.session.commit()
+		return redirect(url_for('login'))
 
-		#Prepara Query para inserción
-		sQuery = "INSERT into Login (correo, contrasena, nombre) VALUES (%s, %s, %s)"
-
-		#Cursor para la ejecución
-		cur = mysql.connection.cursor()
-
-		#Ejecutar la sentencia
-		cur.execute(sQuery, (correo,contrasena_encriptada, nombre))
-
-		#Ejecutar el commit
-		mysql.connection.commit()
-
-		#Registrar la sesión
-		session['nombre'] = nombre
-		#session['correo'] = correo
-
-		#redirigir
-		return redirect(url_for('home'))
+	return render_template("signup.html", form = form)
 
 @app.route("/inicio-de-sesion", methods=['POST','GET'])
 def login():
-	if request.method == 'GET':
-		if 'nombre' in session:
-			return redirect(url_for('home'))
-		else:
-			return render_template("login.html")
-	else:
-		correo = request.form['nmCorreoLogin']
-		cotrasena = request.form['nmContrasenaLogin']
-		contrasena_encode = contrasena.encode("utf-8")
+	form = LoginForm()
+	if loginform.validate_on_submit():
+		user = User.query.filter_by(username=loginform.username.data).first()
+		if user:
+			if bcrypt.check_password_hash(user.password, loginform.password.data):
+				login_user(user)
+				return redirect(url_for("dashboard"))
+	return render_template("login.html", form = form)
 
-		cur = mysql.connection.cursor()
-
-		sQuery = "SELECT correo, contrasena, nombre FROM Login WHERE correo =%s"
-
-		cur.execute(sQuery, [correo])
-
-		usuario = cur.fetchone()
-
-		cur.close()
-
-		if usuario != None:
-			contrasena_encriptada_encode = usuario[1].encode()
-
-			print("Password_encode", contrasena_encode)
-			print("contrasena_encriptada_encode", contrasena_encriptada_encode)
-
-			if bcrypt.checkpw(contrasena_encode, contrasena_encriptada_encode):
-				session['nombre'] = usuario[2]
-				session['correo'] = contrasena_encriptada_encode
-				return redirect(url_for('home'))
-			else:
-				flash("La contraseña no es correcta", "alert-warning")
-				return render_template("login.html")
-		else:
-			print("el usuario no existe")
-			flash("El correo no existe", "alert-warning")
-			return render_template("login.html")
-
-@app.route("/logout")
+@app.route("/logout", methods=['POST','GET'])
+@login_required
 def cerrar_sesion():
-	session.clear()
+	logout_user()
 	return redirect(url_for('home'))
 
 
