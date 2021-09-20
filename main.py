@@ -9,7 +9,7 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 #app.secret_key = "Pruebadecontraseñasecretacualquiera"
 
-#Database
+#Base de datos
 database = SQLAlchemy(app)
 
 #Encriptado
@@ -101,7 +101,7 @@ def login():
 				return redirect(url_for("home"))
 	return render_template("login.html", form = loginform)
 
-@app.route("/logout", methods=['POST','GET'])
+@app.route("/cerrar-sesion", methods=['POST','GET'])
 @login_required
 def cerrar_sesion():
 	logout_user()
