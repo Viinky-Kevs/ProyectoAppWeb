@@ -82,6 +82,10 @@ def menu():
 def plato():
 	return render_template("plato.html")
 
+@app.route("/admin-dash")
+def dashboard():
+	return render_template("dashboard.html")
+
 @app.route("/registrar-usuario", methods=['POST','GET'])
 def registrar():
 	form = RegisterForm()
