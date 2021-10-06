@@ -1,0 +1,66 @@
+#admin{
+    position: fixed;
+}
+#title_p {
+    position: absolute;
+    left: 550px;
+    width: 700px;
+    font-size: 25px;
+}
+#users {
+    position:absolute;
+    top:50px;
+    left:400px;
+    width:500px;
+    margin-top:10px;
+    }
+#column_1 {
+    position: absolute;
+    left: 300px;
+    top: 100px;
+    width: 400px;
+}
+#plates {
+    position: absolute;
+    top: 50px;
+    margin-left:1100px;
+    margin-right:20px;
+    margin-top:10px;
+}
+
+#column_2 {
+    position: absolute;
+    left: 1000px;
+    top: 100px;
+    width: 400px;
+}
+
+#comments {
+    position:absolute;
+    top:400px;
+    left:400px;
+    width:500px;
+    margin-top:10px;
+    }
+#column_3 {
+    position: absolute;
+    left: 300px;
+    top: 500px;
+    width: 400px;
+}
+
+#numbers {
+    position: absolute;
+    top: 400px;
+    width: 500px;
+    margin-left:1050px;
+    margin-right:20px;
+    margin-top:10px;
+}
+
+#column_4 {
+    position: absolute;
+    left: 1100px;
+    top: 500px;
+    width: 400px;
+}

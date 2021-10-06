@@ -3,7 +3,7 @@
 {% block title %} Carta {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style_menu') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_menu.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
                         <h1>
                             Productos horneados
                         </h1>
-                        <a href="plato.html">
+                        <a href="{{ url_for('plato') }}">
                             <img src="{{ url_for('static', filename='images/Pan_2.png')}}">
                         </a> 
                         <h4>

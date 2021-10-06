@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %} Detalle-Plato {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div id="admin">
+            <div id="title_p">
+                <h1>
+                    Dashboard Administrativo
+                </h1>
+            </div>
+            
+            <div id="users">
+                <h2>
+                    Usuarios
+                </h2>
+            </div>
+            <br>
+            <div id="column_1">
+                
+                <h3 >
+                    ###### usuarios activos
+                </h3>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-user-plus' ></i> &nbsp; Registrar Usuario
+                    </h3>
+                </a>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-user-check' ></i> &nbsp; Editar Usuario
+                    </h3>
+                </a>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-user-x' ></i> &nbsp; Eliminar Usuario
+                    </h3>
+                </a>
+            </div>
+            <div id="plates">
+                <h2>
+                    Menús
+                </h2>
+            </div>
+            <br>
+            <div id="column_2">
+                
+                <h3 >
+                    ###### Platos publicados
+                </h3>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-plus-circle' ></i> &nbsp; Adicionar Plato
+                    </h3>
+                </a>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-list-check'></i> &nbsp; Editar Plato
+                    </h3>
+                </a>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-minus-circle' ></i> &nbsp; Eliminar Plato
+                    </h3>
+                </a>
+            </div>
+            <div id="comments">
+                <h2>
+                    Comentarios
+                </h2>
+            </div>
+            <br>
+            <div id="column_3">
+                <h3 >
+                    ###### comentarios publicados
+                </h3>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bxs-book-open' ></i> &nbsp; Ver platos con comentarios
+                    </h3>
+                </a>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-edit-alt' ></i> &nbsp; Editar comentarios
+                    </h3>
+                </a>
+                <br>
+                <a href="#">
+                    <h3>
+                        <i class='bx bx-checkbox-minus' ></i> &nbsp; Eliminar comentario
+                    </h3>
+                </a>
+            </div>
+            <div id="numbers">
+                <h2>
+                    Número de visitas
+                </h2>
+            </div>
+            <br>
+            <div id="column_4">
+                <h3 >
+                    123456789
+                </h3>
+                <br>
+                
+            </div>
+        </div>
+{% endblock %}

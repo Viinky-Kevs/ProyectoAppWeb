@@ -78,6 +78,10 @@ def carrito():
 def menu():
 	return render_template("carta.html")
 
+@app.route("/plato")
+def plato():
+	return render_template("plato.html")
+
 @app.route("/registrar-usuario", methods=['POST','GET'])
 def registrar():
 	form = RegisterForm()
