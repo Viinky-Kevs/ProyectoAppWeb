@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} RegistroU {% endblock %}
+{% block title %} Registro-usuario {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_signup.css') }}">
+{% endblock %}
 
 {% block content %}
 <div class="login-page">
-  <form action="" method="POST">
+  <h1>
+    Registro de nuevo usuario
+  </h1>
+  <form action="" method="POST" class="format">
       {{ form.hidden_tag() }}
       {{ form.username }}
       {{ form.password }}

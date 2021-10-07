@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="utf-8">
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css') }}">
     <!-- Boxicons.com Iconos (utilizar font)-->
-    {% block style %}
-    {% endblock %}
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="icon" href="{{ url_for('static', filename='images/icon.ico') }}" sizes="16x16" type="image/png">
-    {% block javascript %}
-    {% endblock %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% block style %}
+  {% endblock %}
+
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="icon" href="{{ url_for('static', filename='images/icon.ico') }}" sizes="16x16" type="image/png">
+
+  {% block javascript %}
+  {% endblock %}
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
+
 	<div class="sidebar">
     <div class="logo-details">
       <i class='bx bx-restaurant' ></i>

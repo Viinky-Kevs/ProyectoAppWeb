@@ -1,4 +1,19 @@
-.login-page .formato{
-  display: fixed;
+.login-page {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.format {
+  display: block;
+  margin-top: 100px;
+  margin-left: 500px;
+}
+.register {
   text-align: center;
 }
