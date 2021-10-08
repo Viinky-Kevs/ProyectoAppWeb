@@ -17,13 +17,31 @@
     Inicio de sesión
   </h1>
   <form action="" method="POST" class="format">
+    <div class="imgcontainer">
+      <img src="{{ url_for('static', filename='images/Pan_2.jpg')}}" class="avatar">
+    </div>
+    <div class="container">
       {{ form.hidden_tag() }}
       {{ form.username }}
       {{ form.password }}
       {{ form.submit }}
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+      <a href="">
+        <button type="button" class="cancelbtn">Cancelar</button>
+      </a>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+      <span>
+        <a href="{{ url_for('registrar') }}" class="register">
+          ¿No tienes una cuenta? Registrate!
+        </a>
+      </span>
+      
+    </div>  
   </form>
-  <a href="{{ url_for('registrar') }}" class="register">
-        ¿No tienes una cuenta? Registrate!
-  </a>
+  
 </div>
 {% endblock %}
