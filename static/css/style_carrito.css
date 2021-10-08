@@ -1,0 +1,39 @@
+
+.title {
+    font-size: 35px;
+    text-align: center;
+}
+
+.table {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.table_1, th {
+    border:1px solid black;
+}
+
+.table_1 .image {
+    width: 50px;
+}
+.shop-button {
+  position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 82%;
+}
+
+.button {
+    background-color: #800000; 
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}

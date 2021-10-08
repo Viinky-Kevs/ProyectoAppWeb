@@ -1,7 +1,39 @@
 {% extends 'base.html' %}
 
 {% block title %} Lista-Deseos {% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_lista.css') }}">
+{% block style %}
 
+{% endblock %}
+<h1 class="title">
+            Lista de deseos
+        </h1>
+        <div class="table">
+            <table class="table_1" style="width: 90%">
+                <tr>
+                    <th>
+                        Producto
+                    </th>
+                    <th>
+                        Precio
+                    </th>
+                    <th>
+                        Agregar al carrito
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <img src="{{ url_for('static', filename='images/Pan_2.jpg')}}" class="image"> Pan de trigo
+                    </th>
+                    <th>
+                        $10.000
+                    </th>
+                    <th>
+                        <a href="#">Agregar al carrito</a>
+                    </th>
+                </tr>
+            </table>
+        </div>
 {% block content %}
     
 {% endblock %}

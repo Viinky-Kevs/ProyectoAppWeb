@@ -1,0 +1,18 @@
+.title {
+    font-size: 35px;
+    text-align: center;
+}
+
+.table {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.table_1, th {
+    border:1px solid black;
+}
+
+.table_1 .image {
+    width: 50px;
+}
