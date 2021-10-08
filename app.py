@@ -60,7 +60,7 @@ class LoginForm(FlaskForm):
 #Definición de rutas
 @app.route("/")
 def home():
-	return render_template("index.html")
+	return render_template("home.html")
 
 @app.route("/lista-de-deseos")
 def lista():

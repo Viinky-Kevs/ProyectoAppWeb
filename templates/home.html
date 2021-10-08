@@ -2,8 +2,12 @@
 
 {% block title %} Inicio {% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_home.css') }}">
+{% endblock %}
+
 {% block content %}
-<div class="text">
+<div class="title">
   Productos horneados
 </div>
 <div id="qrcode">
