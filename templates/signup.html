@@ -12,15 +12,22 @@
     Registro de nuevo usuario
   </h1>
   <form action="" method="POST" class="format">
+    <div class="container">
       {{ form.hidden_tag() }}
       {{ form.username }}
       {{ form.password }}
       {{ form.submit }}
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+      <a href="{{ url_for('home') }}">
+        <button type="button" class="cancelbtn">Cancelar</button>
+      </a>
+      <span class="psw">
+        <a href="{{ url_for('login') }}" class="register">
+          ¿Ya tienes una cuenta? Inicia Sesión
+        </a>
+      </span>
+    </div> 
   </form>
-  <div class="login_href">
-  	<a href="{{ url_for('login') }}">
-  		¿Ya tienes una cuenta? Inicia Sesión
-  	</a>
-  </div>
 </div>    
 {% endblock %}
