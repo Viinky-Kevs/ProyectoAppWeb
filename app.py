@@ -293,7 +293,25 @@ def cerrar_sesion():
 	logout_user()
 	return redirect(url_for('home'))
 
-
+@app.route("/changepassword", methods=['GET', 'POST'])
+@login_required
+def cambiar_contrasena():
+	change_form = ChangePasswordForm()
+	if form.validate_on_submit():
+		user = User.query.filter_by(email=form.email.data).first()
+		hashed_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
+		if form.email.data != current_user.email:
+			flash("Email invalido")
+			return redirect(url_for('cambiar_contrasena'))
+		if not bcrypt.check_password_hash(current_user.password, form.current_password.data):
+			flash("Contraseña invalida")
+			return redirect(url_for('cambiar_contrasena'))
+		else:
+			current_user.password = hashed_password
+			database.session.commit()
+			flash('Tu contraeña ha sido actualizada!')
+			return redirect(url_for('perfil-usuario'))
+    return render_template("cambiarcontra.html", change_form = change_form, title="Cambiar contraseña")
 
 
 if __name__ == "__main__":
