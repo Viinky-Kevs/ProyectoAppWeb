@@ -8,8 +8,44 @@
 
 {% block content %}
 <div class="title">
-	<h1>
-		{{ user }}
-	</h1>
-</div>   
+	<h2>
+		My Account
+	</h2>
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %} 
+{% ifmessages %} 
+{% for category, message in messages %}
+    
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %} 
+{% endif %} 
+{% endwith %}
+<form method="POST" action="" enctype="multipart/form-data">
+    <div class="basic-user-info">
+        <div class="img-and-name">
+            <img src="../static/profile_pics/{{current_user.profile_pic}}" />
+                {% if current_user.verified == True %}
+            <h2>
+            	{{current_user.username}} ✅
+        	</h2>
+              	{% else %}
+            <h2>{
+            	{current_user.username}}
+            </h2>
+                {% endif %}
+        </div>
+    </div>
+    <br>
+        {{ form.hidden_tag ()}} 
+        {{ form.email }} 
+        {{ form.username }} 
+        {{ form.profile_pic }} 
+        {{ form.bio }} 
+        {{ form.submit }}
+    <p class="change-pw">
+        ¿Cambiar contraseña? <a href="#">Da click aquí.</a>
+    </p>
+    <a href="#">Eliminar cuenta.</a>
+        <!--{{ url_for('delete_account')}}-->
+</form>  
 {% endblock %}

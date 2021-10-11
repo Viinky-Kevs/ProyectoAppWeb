@@ -238,8 +238,23 @@ def dashboard():
 @login_required
 @app.route("/perfil-usuario")
 def perfil_usuario(username):
-	user = User.query.filter_by(username=username).first()
-	return render_template("usuario.html", user = user)
+	form = UpdateAccount()
+	if form.validate_on_submit():
+		if form.profile_pic.data:
+			picture_file = save_picture(form.profile_pic.data)
+			current_user.profile_pic = picture_file
+			current_user.username = form.username.data
+			current_user.email = form.email.data
+			current_user.bio_content = form.bio.data
+			database.session.commit()
+			flash('Tu cuenta ha sido actualizada!', 'Exito!')
+			return redirect(url_for('perfil-usuario'))
+	elif request.method == 'GET':
+		form.username.data = current_user.username
+		form.email.data = current_user.email
+		form.bio.data = current_user.bio_content
+		profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+	return render_template("usuario.html", name=current_user.username, email=current_user.email, title="My Profile", form=form,  profile_pic=profile_pic)
 
 @app.route("/registrar-usuario", methods=['POST','GET'])
 def registrar():
