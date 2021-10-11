@@ -4,6 +4,7 @@
 
 .format {
   border: 3px solid #DEB887;
+  top: 100px;
 }
 
 button {
@@ -32,7 +33,7 @@ button:hover {
 }
 
 .imgcontainer  .avatar {
-  width: 40px;
+  width: 80px;
   border-radius: 50%;
 }
 

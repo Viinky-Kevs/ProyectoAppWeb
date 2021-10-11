@@ -62,6 +62,7 @@ class LoginForm(FlaskForm):
 def home():
 	return render_template("home.html")
 
+@login_required
 @app.route("/lista-de-deseos")
 def lista():
 	return render_template("listadeseos.html")
@@ -70,6 +71,7 @@ def lista():
 def ajustes():
 	return render_template("ajustes.html")
 
+@login_required
 @app.route("/carrito-de-compras")
 def carrito():
 	return render_template("carrito.html")
@@ -82,9 +84,15 @@ def menu():
 def plato():
 	return render_template("plato.html")
 
+@login_required
 @app.route("/admin-dash")
 def dashboard():
 	return render_template("dashboard.html")
+
+@login_required
+@app.route("/perfil-usuario")
+def perfil_usuario():
+	return render_template("usuario.html")
 
 @app.route("/registrar-usuario", methods=['POST','GET'])
 def registrar():
