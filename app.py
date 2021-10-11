@@ -293,7 +293,7 @@ def cerrar_sesion():
 	logout_user()
 	return redirect(url_for('home'))
 
-@app.route("/changepassword", methods=['GET', 'POST'])
+@app.route("/cambiar-contra", methods=['GET', 'POST'])
 @login_required
 def cambiar_contrasena():
 	change_form = ChangePasswordForm()
@@ -311,8 +311,35 @@ def cambiar_contrasena():
 			database.session.commit()
 			flash('Tu contraeña ha sido actualizada!')
 			return redirect(url_for('perfil-usuario'))
-    return render_template("cambiarcontra.html", change_form = change_form, title="Cambiar contraseña")
+	return render_template("cambiarcontra.html", change_form = change_form, title="Cambiar contraseña")
 
+@app.route("/borrar-cuenta", methods=['GET', 'POST'])
+@login_required
+def borrar_cuenta():
+	delete_form = DeleteAccountForm()
+	posts = current_user.posts
+	sent_messages = Message.query.filter_by(sender=current_user).all()
+	received_messages = Message.query.filter_by(receiver=current_user).all()
+	comments = Comment.query.filter_by(commenter=current_user).all()
+	user = User.query.filter_by(email=form.email.data).first()
+	if form.validate_on_submit():
+		if form.email.data != current_user.email or form.username.data != current_user.username:
+			flash('El email o nombre de usuario no esta asociado con tu cuenta.')
+			return redirect(url_for('borrar_cuenta'))
+		for post in posts:
+			database.session.delete(post)
+		for message in sent_messages:
+			database.session.delete(message)
+		for message in received_messages:
+			database.session.delete(message)
+		for comment in comments:
+			database.session.delete(comment)
+		
+		database.session.delete(user)
+		database.session.commit()
+		flash('Tu cuenta ha sido eliminada', 'Éxito!')
+		return redirect(url_for('home'))
+	return render_template("borrar_cuenta.html", form=form, title="Borrar mi cuenta")
 
 if __name__ == "__main__":
 	app.run(debug = True)
