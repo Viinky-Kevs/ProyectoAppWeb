@@ -13,10 +13,19 @@
   </h1>
   <form action="" method="POST" class="format">
     <div class="container">
-      {{ form.hidden_tag() }}
-      {{ form.username }}
-      {{ form.password }}
-      {{ form.submit }}
+      {{ registerform.hidden_tag() }}
+      <div class="field">
+        {{ registerform.username }}
+      </div>
+      <div class="field">
+        {{ registerform.email }}
+      </div>
+      <div class="field">
+        {{ registerform.password }}
+      </div>
+      <div class="field">
+        <input type='submit' value='Registrarse'>
+      </div>
     </div>
     <div class="container" style="background-color:#f1f1f1">
       <a href="{{ url_for('home') }}">

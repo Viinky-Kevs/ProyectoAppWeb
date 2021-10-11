@@ -21,10 +21,10 @@
       <img src="{{ url_for('static', filename='images/user.png')}}" class="avatar">
     </div>
     <div class="container">
-      {{ form.hidden_tag() }}
-      {{ form.username }}
-      {{ form.password }}
-      {{ form.submit }}
+      {{ loginform.hidden_tag() }}
+      {{ loginform.username }}
+      {{ loginform.password }}
+      {{ loginform.submit }}
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
