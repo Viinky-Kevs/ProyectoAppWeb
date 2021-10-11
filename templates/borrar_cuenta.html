@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Perfil-usuario {% endblock %}
+{% block title %} Borrar-cuenta {% endblock %}
 
 {% block style %}
 
@@ -11,7 +11,10 @@
     <h2>Delete My Account</h2>
     <figcaption>We're sorry to see you go...</figcaption>
     <form method="POST" action="">
-        {{ form.hidden_tag() }} {{ form.email}} {{ form.username}} {{form.password}}
+        {{ form.hidden_tag() }} 
+        {{ form.email}} 
+        {{ form.username}} 
+        {{form.password}}
         {{ form.submit}}
         <p>
             When you click the "Delete My Account" button, that is an undoable action
