@@ -222,8 +222,9 @@ def dashboard():
 
 @login_required
 @app.route("/perfil-usuario")
-def perfil_usuario():
-	return render_template("usuario.html")
+def perfil_usuario(username):
+	user = User.query.filter_by(username=username).first()
+	return render_template("usuario.html", user = user)
 
 @app.route("/registrar-usuario", methods=['POST','GET'])
 def registrar():
