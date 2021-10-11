@@ -341,5 +341,16 @@ def borrar_cuenta():
 		return redirect(url_for('home'))
 	return render_template("borrar_cuenta.html", form=form, title="Borrar mi cuenta")
 
+@app.route("/olvide-contra", methods=["GET", "POST"])
+def forgot_password():
+	forgot_form = ForgotPasswordForm()
+	if current_user.is_authenticated:
+		return redirect(url_for('home'))
+	if form.validate_on_submit():
+		user = User.query.filter_by(email=form.email.data).first()
+		send_reset_email(user)
+		flash("Un email fue enviado a tu correo para reestablecer la contraseña.", 'Éxito!')
+	return render_template("olvide_contra.html", forgot_form = forgot_form, title="Olvidé contraseña")
+
 if __name__ == "__main__":
 	app.run(debug = True)
