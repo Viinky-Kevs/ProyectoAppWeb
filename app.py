@@ -7,12 +7,14 @@ from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
+from flask_socketio import SocketIO, emit, send, join_room
+from flask_sslify import SSLify
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import InputRequired, Email, Length, ValidationError
+from PIL import Image
 import secrets
 import hashlib
-from PIL import Image
-
+import os
 
 app = Flask(__name__)
 #app.secret_key = "Pruebadecontraseñasecretacualquiera"
@@ -23,8 +25,21 @@ database = SQLAlchemy(app)
 #Encriptado
 bcrypt = Bcrypt(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+mail = Mail(app)
+
+socketio = SocketIO(app, cors_allowed_origins='*')
+
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = os.environ.get("EMAIL_BLOGGY")
+app.config['MAIL_PASSWORD'] = os.environ.get("PASSWORD_BLOGGY")
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -41,7 +56,7 @@ def make_session_permanent():
 
 class User(database.Model, UserMixin):
 	id = database.Column(database.Integer, primary_key=True)
-	email = database.Column(database.String(50), unique=True)
+	email = database.Column(database.String(30), unique=True)
 	username = database.Column(database.String(20), nullable=False, unique=True)
 	password = database.Column(database.String(80), nullable=False)
 	profile_pic = database.Column(database.String(40), nullable=False, default='default.jpg')
@@ -94,7 +109,7 @@ class LoginForm(FlaskForm):
     def validate_username(self, username):
         username = User.query.filter_by(username=username.data).first()
         if not username:
-            raise ValidationError('Account does not exists.')
+            raise ValidationError('El usuario no existe.')
 
 class BioForm(FlaskForm):
     bio = TextAreaField('Bio', [Length(min=0, max=1000)])
