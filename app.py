@@ -16,8 +16,7 @@ import secrets
 import hashlib
 import os
 
-app = Flask(__name__)
-#app.secret_key = "Pruebadecontraseñasecretacualquiera"
+app = Flask(__name__) 
 
 #Base de datos
 database = SQLAlchemy(app)
@@ -29,9 +28,9 @@ mail = Mail(app)
 
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+'''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -40,6 +39,7 @@ app.config['MAIL_USERNAME'] = os.environ.get("EMAIL_BLOGGY")
 app.config['MAIL_PASSWORD'] = os.environ.get("PASSWORD_BLOGGY")
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
+'''
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -60,17 +60,18 @@ class User(database.Model, UserMixin):
 	username = database.Column(database.String(20), nullable=False, unique=True)
 	password = database.Column(database.String(80), nullable=False)
 	profile_pic = database.Column(database.String(40), nullable=False, default='default.jpg')
-	commenter = database.relationship('Comment', backref='commenter', lazy='dynamic')
+	#commenter = database.relationship('Comment', backref='commenter', lazy='dynamic')
 	#wish = database.relationship('Wish', backref='liker', lazy='dynamic')
 	bio_content = database.Column(database.String(1000))
 	verified = database.Column(database.Boolean(), default=False)
 
+'''
 class Comment(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     commented_id = database.Column(database.Integer, database.ForeignKey('post.id'))
     commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
     comment_body = database.Column(database.String(100))
-
+'''
 
 #Administrador
 class AdminModelView(ModelView):
@@ -82,7 +83,7 @@ class AdminModelView(ModelView):
 
 admin = Admin(app, name='Admin-restaurante', template_mode='bootstrap4')
 admin.add_view(AdminModelView(User, database.session))
-admin.add_view(AdminModelView(Comment, database.session))
+#admin.add_view(AdminModelView(Comment, database.session))
 
 class RegisterForm(FlaskForm):
 	email = StringField("Email",validators=[InputRequired(), Email(message="Email invalido"), Length(max=50)], render_kw={"placeholder": "Email"})
@@ -102,14 +103,14 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField("Username", validators=[InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Usuario"})
-    password = PasswordField("Password", validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Contraseña"})
-    submit = SubmitField("Iniciar Sesión")
+	username = StringField("Username", validators=[InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Usuario"})
+	password = PasswordField("Password", validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Contraseña"})
+	submit = SubmitField("Iniciar Sesión")
 
-    def validate_username(self, username):
-        username = User.query.filter_by(username=username.data).first()
-        if not username:
-            raise ValidationError('El usuario no existe.')
+	def validate_username(self, username):
+		username = User.query.filter_by(username=username.data).first()
+		if not username:
+			raise ValidationError('El usuario no existe.')
 
 class BioForm(FlaskForm):
     bio = TextAreaField('Bio', [Length(min=0, max=1000)])
@@ -261,7 +262,7 @@ def registrar():
 	registerform = RegisterForm()
 	if registerform.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(registerform.password.data)
-		new_user = User(username=form.username.data, password=hashed_password)
+		new_user = User(username=registerform.username.data, password=hashed_password)
 		database.session.add(new_user)
 		database.session.commit()
 		flash("Tu cuenta ha sido creada exitosamente!")
@@ -342,7 +343,7 @@ def borrar_cuenta():
 	return render_template("borrar_cuenta.html", form=form, title="Borrar mi cuenta")
 
 @app.route("/olvide-contra", methods=["GET", "POST"])
-def forgot_password():
+def olvide_contra():
 	forgot_form = ForgotPasswordForm()
 	if current_user.is_authenticated:
 		return redirect(url_for('home'))
