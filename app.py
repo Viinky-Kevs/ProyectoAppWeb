@@ -214,6 +214,10 @@ def home():
 def lista():
 	return render_template("listadeseos.html")
 
+@app.route("/busqueda")
+def busqueda():
+	return render_template("buscar.html")
+
 @app.route("/ajustes")
 def ajustes():
 	return render_template("ajustes.html")
@@ -251,7 +255,7 @@ def perfil_usuario(username):
 		database.session.commit()
 		flash('Tu cuenta ha sido actualizada!', 'Exito!')
 		return redirect(url_for('perfil-usuario'))
-		
+
 	elif request.method == 'GET':
 		form.username.data = current_user.username
 		form.email.data = current_user.email

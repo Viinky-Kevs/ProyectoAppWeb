@@ -1,0 +1,47 @@
+.title {
+	text-align: center;
+	font-size: 30px;
+}
+
+.title_2 {
+	font-size: 15px;
+	margin-left: 100px;
+}
+
+.column {
+  float: left;
+  width: 30%;
+  margin-left: 100px;
+  padding: 10px;
+  height: 300px;
+}
+
+.search {
+	width: 90%;
+	margin-left: 50px;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.image_1 {
+	width: 250px;
+}
+
+.survey {
+	display: flex;
+}
+
+.title_3 {
+	font-size: 15px;
+	text-align: center;
+}
+.column_1 {
+  float: left;
+  width: 30%;
+  margin-left: 100px;
+  padding: 10px;
+  height: 300px;
+}

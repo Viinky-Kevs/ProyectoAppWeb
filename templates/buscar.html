@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %} Resultado-busqueda {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_search.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="title">
+	<h1>
+		Resultado de busqueda
+	</h1>
+</div>
+<div class="title_2">
+	<h3>
+		Resultado de busqueda para: 1234
+	</h3>
+</div>
+<div class="search">
+	<hr>
+	<div class="row">
+		<div class="column">
+			<img src="{{ url_for('static', filename='images/Pan_2.jpg')}}" class="image_1">
+		</div>
+  		<div class="column">
+  			<p>
+  				Precio pan 1234
+  			</p>
+  		</div>
+	</div>
+	<hr>
+</div>
+<div class="search">
+	<hr>
+	<div class="row">
+		<div class="column">
+			<img src="{{ url_for('static', filename='images/Pan_2.jpg')}}" class="image_1">
+		</div>
+  		<div class="column">
+  			<p>
+  				Precio pan 1234
+  			</p>
+  		</div>
+	</div>
+	<hr>
+</div>
+<div class="search">
+	<hr>
+	<div class="row">
+		<div class="column">
+			<img src="{{ url_for('static', filename='images/Pan_2.jpg')}}" class="image_1">
+		</div>
+  		<div class="column">
+  			<p>
+  				Precio pan 1234
+  			</p>
+  		</div>
+	</div>
+	<hr>
+</div>
+<footer>
+	<div class="survey">
+		<h3 class="title_3">
+			¿Te fue útil la información?
+		</h3>
+		<div class="row_1">
+			<div class="column_1">
+				<input type="radio" name="survey_1" value="1">Si
+			</div>
+	  		<div class="column_1">
+	  			<input type="radio" name="survey_1" value="2">No
+	  		</div>
+		</div>
+		<div>
+			<button type="button">
+				Enviar
+			</button>
+		</div>
+	</div>
+</footer>
+{% endblock %}
