@@ -244,12 +244,14 @@ def perfil_usuario(username):
 		if form.profile_pic.data:
 			picture_file = save_picture(form.profile_pic.data)
 			current_user.profile_pic = picture_file
-			current_user.username = form.username.data
-			current_user.email = form.email.data
-			current_user.bio_content = form.bio.data
-			database.session.commit()
-			flash('Tu cuenta ha sido actualizada!', 'Exito!')
-			return redirect(url_for('perfil-usuario'))
+		
+		current_user.username = form.username.data
+		current_user.email = form.email.data
+		current_user.bio_content = form.bio.data
+		database.session.commit()
+		flash('Tu cuenta ha sido actualizada!', 'Exito!')
+		return redirect(url_for('perfil-usuario'))
+		
 	elif request.method == 'GET':
 		form.username.data = current_user.username
 		form.email.data = current_user.email
