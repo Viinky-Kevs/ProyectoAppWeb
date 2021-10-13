@@ -371,16 +371,16 @@ def olvide_contra():
 def resetear_contra(token):
     user = User.verify_reset_token(token)
     if user is None:
-        flash('That is an invalid or expired token', 'warning')
-        return redirect(url_for('forgot_password'))
-    form = ResetPasswordForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        flash('Este es un token invalido', 'warning')
+        return redirect(url_for('olvide-contra'))
+    reset_form = ResetPasswordForm()
+    if reset_form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(reset_form.password.data)
         user.password = hashed_password
         database.session.commit()
-        flash('Your password has been updated! You are now able to log in', 'success')
+        flash('Tu contraseña ha sido actualizada!', 'success')
         return redirect(url_for('home'))
-    return render_template('resetpw.html', title='Reset Password', form=form)
+    return render_template('resetearcontra.html', title = 'Reset Password', form = reset_form)
 
 if __name__ == "__main__":
 	app.run(debug = True)
