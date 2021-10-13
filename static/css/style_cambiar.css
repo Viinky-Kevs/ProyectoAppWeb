@@ -1,0 +1,13 @@
+.title {
+    text-align: center;
+    font-size: 30px;
+}
+
+.email,
+.password,
+.password_new,
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

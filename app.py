@@ -297,7 +297,7 @@ def cambiar_contrasena():
 			database.session.commit()
 			flash('Tu contraeña ha sido actualizada!')
 			return redirect(url_for('perfil-usuario'))
-	return render_template("cambiarcontra.html", change_form = change_form, title="Cambiar contraseña")
+	return render_template("cambiarcontra.html", form = change_form, title="Cambiar contraseña")
 
 @app.route("/borrar-cuenta", methods=['GET', 'POST'])
 @login_required
