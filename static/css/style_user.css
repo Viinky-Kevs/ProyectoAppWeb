@@ -3,8 +3,29 @@
     font-size: 30px;
 }
 .pic_user {
+    display: block;
     border-radius: 50%;
     margin-left: auto;
     margin-right: auto;
     width: 200px;
+}
+
+.name_2 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.pic,
+.email,
+.username,
+.bio,
+.button_1 {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.rest {
+    display: flex;
+    justify-content: center;
 }

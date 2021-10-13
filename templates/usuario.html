@@ -36,25 +36,34 @@
     <div class="pic">
         {{ form.profile_pic }} 
     </div>
+    <br>
     <div class="email">
         {{ form.email }}
-    </div>     
+    </div>
+    <br>     
     <div class="username">
         {{ form.username }} 
     </div>
+    <br>
     <div class="bio">
         {{ form.bio }}
-    </div>    
+    </div>
+    <br>
+    <br>    
     <div class="button_1">
         {{ form.submit }}
-    </div>    
+    </div>
+    <br>
+    <br>    
     <div class="rest">
-        <p class="change-pw">
+        <p class="change">
             ¿Cambiar contraseña? <a href="#">Da click aquí.</a>
-        </p>
-        <a href="#">Eliminar cuenta.</a>
-            {{ url_for('borrar_cuenta')}}
+        </p>      
     </div>     
-        
+    <div class="rest">
+        <p class="delete">
+            ¿Quieres eliminar tu cuenta? <a href="{{ url_for('borrar_cuenta')}}">Da click aquí.</a>
+        </p>
+    </div>    
 </form>  
 {% endblock %}

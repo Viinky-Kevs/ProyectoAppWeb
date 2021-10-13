@@ -251,7 +251,7 @@ def registrar():
 		database.session.add(new_user)
 		database.session.commit()
 		flash("Tu cuenta ha sido creada exitosamente!")
-		return redirect(url_for('inicio-de-sesion'))
+		return redirect(url_for('login'))
 
 	return render_template("signup.html", registerform = registerform)
 
