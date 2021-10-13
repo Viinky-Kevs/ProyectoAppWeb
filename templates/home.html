@@ -7,14 +7,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="title">
-  Productos horneados
-</div>
-<div id="qrcode">
-  <img src="https://www.codigos-qr.com/qr/php/qr_img.php?d=https%3A%2F%2Fproductoshorneados.herokuapp.com%2F&s=8&e=m" alt="Generador de Códigos QR Codes"/>
+<div class="container">
+  <div class="title">
+    Productos horneados
+  </div>
+  <div id="qrcode">
+    <img src="https://www.codigos-qr.com/qr/php/qr_img.php?d=https%3A%2F%2Fproductoshorneados.herokuapp.com%2F&s=8&e=m" alt="Generador de Códigos QR Codes"/>
+  </div>
 </div>
 
-{% if current_user.verified == True %}
-<h1>Si</h1>
-{% endif %}
 {% endblock %}
