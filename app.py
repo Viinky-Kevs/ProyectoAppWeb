@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session, flash
+from flask import Flask, redirect, url_for, render_template, abort, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
@@ -37,9 +37,10 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = os.environ.get("EMAIL_BLOGGY")
 app.config['MAIL_PASSWORD'] = os.environ.get("PASSWORD_BLOGGY")
+'''
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-'''
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
