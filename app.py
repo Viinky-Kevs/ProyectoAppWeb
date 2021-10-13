@@ -131,64 +131,42 @@ class UpdateAccount(FlaskForm):
         if current_user.username != username.data:
             user = User.query.filter_by(username=username.data).first()
             if user:
-                raise ValidationError(
-                    "That username already exists. Please choose a different one.")
+                raise ValidationError("El nombre de usuario ya existe. Por favor escoge uno diferente.")
 
     def validate_email(self, email):
         if current_user.email != email.data:
             email = User.query.filter_by(email=email.data).first()
             if email:
-                raise ValidationError(
-                    "That email address belongs to different user. Please choose a different one.")
+                raise ValidationError("Este email ya pertenece a otro usuario. Por favor escoge uno diferente.")
 
 
 class ForgotPasswordForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Email(
-        message="Email invalido"), Length(max=50)], render_kw={"placeholder": "Email"})
+    username = StringField(validators=[InputRequired(), Email(message="Email invalido"), Length(max=50)], render_kw={"placeholder": "Email"})
     submit = SubmitField("Enviar correo de nueva contraseña")
 
 
 class ResetPasswordForm(FlaskForm):
-    email = StringField(validators=[InputRequired(), Email(
-        message="Invalid Email"), Length(max=50)], render_kw={"placeholder": "Email"})
-    password = PasswordField(validators=[
-        InputRequired(), Length(min=4)], render_kw={"placeholder": "Password (4 minimum)"})
+    email = StringField(validators=[InputRequired(), Email(message = "Invalid Email"), Length(max=50)], render_kw={"placeholder": "Email"})
+    password = PasswordField(validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Nueva contraseña"})
 
 
 class ChangePasswordForm(FlaskForm):
-    email = StringField(validators=[InputRequired(), Email(
-        message="Invalid Email"), Length(max=50)], render_kw={"placeholder": "Email"})
-    current_password = PasswordField(validators=[InputRequired(), Length(
-        min=4)], render_kw={"placeholder": "Current Password"})
-    new_password = PasswordField(validators=[
-        InputRequired(), Length(min=4)], render_kw={"placeholder": "New Password (4 minimum)"})
+    email = StringField(validators=[InputRequired(), Email(message="Invalid Email"), Length(max=50)], render_kw={"placeholder": "Email"})
+    current_password = PasswordField(validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Contraseña actual"})
+    new_password = PasswordField(validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Nueva contraseña"})
     submit = SubmitField("Change Password")
 
 
 class DeleteAccountForm(FlaskForm):
-    email = StringField(validators=[InputRequired(), Email(
-        message="Invalid Email"), Length(max=50)], render_kw={"placeholder": "Email"})
-    username = StringField(validators=[InputRequired(), Length(
-        min=4, max=15)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(
-        min=4)], render_kw={"placeholder": "Password"})
-    submit = SubmitField("Delete My Account")
+    email = StringField(validators=[InputRequired(), Email(message="Invalid Email"), Length(max=50)], render_kw={"placeholder": "Email"})
+    username = StringField(validators=[InputRequired(), Length(min=4, max=15)], render_kw={"placeholder": "Nombre usuario"})
+    password = PasswordField(validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Contraseña"})
+    submit = SubmitField("Eliminar mi cuenta")
 
 
 class CommentForm(FlaskForm):
-    comment = TextAreaField('Comment', validators=[InputRequired(), Length(
-        min=4)], render_kw={"placeholder": "Enter Comment"})
-    submit = SubmitField("Add Comment")
-
-
-class UserSearchForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(
-        min=4, max=15)], render_kw={"placeholder": "Search For Users"})
-
-
-class MessageForm(FlaskForm):
-    message = StringField(validators=[InputRequired(), Length(
-        min=4, max=200)], render_kw={"placeholder": "Send A Message"})
+    comment = TextAreaField('Comment', validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Ingesar comentario"})
+    submit = SubmitField("Realizar comentario")
 
 
 def save_picture(form_profile_pic):
