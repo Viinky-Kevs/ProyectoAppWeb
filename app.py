@@ -304,13 +304,13 @@ def cerrar_sesion():
 @login_required
 def cambiar_contrasena():
 	change_form = ChangePasswordForm()
-	if form.validate_on_submit():
-		user = User.query.filter_by(email=form.email.data).first()
-		hashed_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
-		if form.email.data != current_user.email:
+	if change_form.validate_on_submit():
+		user = User.query.filter_by(email = change_form.email.data).first()
+		hashed_password = bcrypt.generate_password_hash(change_form.new_password.data).decode('utf-8')
+		if change_form.email.data != current_user.email:
 			flash("Email invalido")
 			return redirect(url_for('cambiar_contrasena'))
-		if not bcrypt.check_password_hash(current_user.password, form.current_password.data):
+		if not bcrypt.check_password_hash(current_user.password, change_form.current_password.data):
 			flash("Contraseña invalida")
 			return redirect(url_for('cambiar_contrasena'))
 		else:
@@ -324,40 +324,62 @@ def cambiar_contrasena():
 @login_required
 def borrar_cuenta():
 	delete_form = DeleteAccountForm()
-	posts = current_user.posts
-	sent_messages = Message.query.filter_by(sender=current_user).all()
-	received_messages = Message.query.filter_by(receiver=current_user).all()
-	comments = Comment.query.filter_by(commenter=current_user).all()
-	user = User.query.filter_by(email=form.email.data).first()
-	if form.validate_on_submit():
-		if form.email.data != current_user.email or form.username.data != current_user.username:
+	sent_messages = Message.query.filter_by(sender = current_user).all()
+	received_messages = Message.query.filter_by(receiver = current_user).all()
+	#comments = Comment.query.filter_by(commenter=current_user).all()
+	user = User.query.filter_by(email = delete_form.email.data).first()
+	if delete_form.validate_on_submit():
+		if delete_form.email.data != current_user.email or delete_form.username.data != current_user.username:
 			flash('El email o nombre de usuario no esta asociado con tu cuenta.')
 			return redirect(url_for('borrar_cuenta'))
-		for post in posts:
-			database.session.delete(post)
 		for message in sent_messages:
 			database.session.delete(message)
 		for message in received_messages:
 			database.session.delete(message)
-		for comment in comments:
-			database.session.delete(comment)
+		#for comment in comments:
+		#	database.session.delete(comment)
 		
 		database.session.delete(user)
 		database.session.commit()
 		flash('Tu cuenta ha sido eliminada', 'Éxito!')
 		return redirect(url_for('home'))
-	return render_template("borrar_cuenta.html", form=form, title="Borrar mi cuenta")
+	return render_template("borrar_cuenta.html", form = delete_form, title = "Borrar mi cuenta")
 
-@app.route("/olvide-contra", methods=["GET", "POST"])
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('¿Olvidaste tu contraseña?',
+                  sender='ksquiroga@uninorte.edu.co',
+                  recipients=[user.email])
+    msg.body = f'''Para reestablecer tu contraseña, da click en el siguiente link: 
+	{url_for('resetear-contra', token=token, _external=True)} 
+	Si no solicitaste el reestablecimiento de la contraseña, ignora este mensaje. '''
+    mail.send(msg)
+
+@app.route("/olvide-contra", methods = ["GET", "POST"])
 def olvide_contra():
 	forgot_form = ForgotPasswordForm()
 	if current_user.is_authenticated:
 		return redirect(url_for('home'))
-	if form.validate_on_submit():
-		user = User.query.filter_by(email=form.email.data).first()
+	if forgot_form.validate_on_submit():
+		user = User.query.filter_by(email = forgot_form.email.data).first()
 		send_reset_email(user)
 		flash("Un email fue enviado a tu correo para reestablecer la contraseña.", 'Éxito!')
 	return render_template("olvide_contra.html", forgot_form = forgot_form, title="Olvidé contraseña")
+
+@app.route("/resetear-contra/<token>", methods=["GET", "POST"])
+def resetear_contra(token):
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('forgot_password'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        user.password = hashed_password
+        database.session.commit()
+        flash('Your password has been updated! You are now able to log in', 'success')
+        return redirect(url_for('home'))
+    return render_template('resetpw.html', title='Reset Password', form=form)
 
 if __name__ == "__main__":
 	app.run(debug = True)
