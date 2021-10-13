@@ -242,7 +242,7 @@ def dashboard():
 
 @login_required
 @app.route("/perfil-usuario")
-def perfil_usuario(username):
+def perfil_usuario():
 	form = UpdateAccount()
 	if form.validate_on_submit():
 		if form.profile_pic.data:
@@ -272,7 +272,7 @@ def registrar():
 		database.session.add(new_user)
 		database.session.commit()
 		flash("Tu cuenta ha sido creada exitosamente!")
-		return redirect(url_for('login'))
+		return redirect(url_for('inicio-de-sesion'))
 
 	return render_template("signup.html", registerform = registerform)
 
@@ -284,13 +284,13 @@ def login():
 		if user:
 			if bcrypt.check_password_hash(user.password, loginform.password.data):
 				login_user(user)
-				return redirect(url_for("home"))
+				return redirect(url_for('/'))
 			if not bcrypt.check_password_hash(user.password, loginform.password.data):
 				flash("Contraseña incorrecta.")
 		if not user:
 			flash("El usuario no existe.")
 	if current_user.is_authenticated:
-		return redirect('home')
+		return redirect('/')
 	else:
 		return render_template("login.html", loginform = loginform)
 
