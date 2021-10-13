@@ -220,7 +220,7 @@ def dashboard():
 	return render_template("dashboard.html")
 
 @login_required
-@app.route("/perfil-usuario")
+@app.route("/perfil-usuario", methods=['GET', 'POST'])
 def perfil_usuario():
 	form = UpdateAccount()
 	if form.validate_on_submit():
@@ -233,7 +233,7 @@ def perfil_usuario():
 		current_user.bio_content = form.bio.data
 		database.session.commit()
 		flash('Tu cuenta ha sido actualizada!', 'Exito!')
-		return redirect(url_for('perfil-usuario'))
+		return redirect(url_for('perfil_usuario'))
 
 	elif request.method == 'GET':
 		form.username.data = current_user.username
@@ -263,20 +263,22 @@ def login():
 		if user:
 			if bcrypt.check_password_hash(user.password, loginform.password.data):
 				login_user(user)
-				return redirect(url_for('inicio-de-sesion'))
+				return redirect(url_for('home'))
 			if not bcrypt.check_password_hash(user.password, loginform.password.data):
 				flash("Contraseña incorrecta.")
 		if not user:
 			flash("El usuario no existe.")
 	if current_user.is_authenticated:
-		return redirect('/')
+		return redirect('home')
 	else:
 		return render_template("login.html", loginform = loginform)
 
 @app.route("/cerrar-sesion", methods=['POST','GET'])
 @login_required
 def cerrar_sesion():
+	session.clear()
 	logout_user()
+	flash("Has cerrado sesión.", 'info')
 	return redirect(url_for('home'))
 
 @app.route("/cambiar-contra", methods=['GET', 'POST'])

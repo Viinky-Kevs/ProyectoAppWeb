@@ -56,6 +56,25 @@
      </li>
 
     <!-- Sección para iniciar sesión -->
+    {% if current_user.is_authenticated %}
+    <li>
+      <a href="{{ url_for('perfil_usuario') }}">
+        <i class='bx bx-user' ></i>
+        <span class="links_name"> {{current_user.username}} </span>
+      </a>
+      <span class="tooltip"> {{current_user.username}} </span>
+    </li>
+
+    <li>
+      <a href="{{ url_for('cerrar_sesion') }}">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name"> Cerrar sesión </span>
+      </a>
+      <span class="tooltip"> Cerrar sesión </span>
+    </li>
+
+    {% else %}
+
      <li>
        <a href="{{ url_for('login') }}">
          <i class='bx bx-user' ></i>
@@ -63,6 +82,8 @@
        </a>
        <span class="tooltip">Iniciar Sesión</span>
      </li>
+
+    {% endif %}
 
      <!-- Sección lista de deseos -->
      <li>
@@ -100,7 +121,7 @@
            	</div>
         </div>
          
-        <a href="https://github.com/Viinky-Kevs/ProyectoAppWeb">
+        <a href="https://github.com/Viinky-Kevs/ProyectoAppWeb" target="_blank">
         	<i class='bx bxl-github' id="github" ></i>
         </a>
          

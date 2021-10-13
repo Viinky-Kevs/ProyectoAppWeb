@@ -1,0 +1,10 @@
+.title_2 {
+    text-align: center;
+    font-size: 30px;
+}
+.pic_user {
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}

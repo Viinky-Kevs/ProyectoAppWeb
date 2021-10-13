@@ -3,12 +3,12 @@
 {% block title %} Perfil-usuario {% endblock %}
 
 {% block style %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_user.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="title">
-	<h2>
+	<h2 class="title_2">
 		Mi perfil
 	</h2>
 </div>
@@ -17,27 +17,44 @@
         <div class="img-and-name">
             <!--<img src="../static/profile_pics/{{current_user.profile_pic}}" />-->
                 {% if current_user.verified == True %}
-            <h2>
-            	{{current_user.username}}
+            <h2 class="name_1">
+            	{{ current_user.username }}
         	</h2>
               	{% else %}
-            <h2>
-            	{{current_user.email}}
+            <img src="{{ profile_pic }}" class="pic_user">
+            <br>   
+            <h2 class="name_2">
+            	{{ current_user.username }}
             </h2>
                 {% endif %}
         </div>
     </div>
     <br>
-        {{ form.hidden_tag ()}} 
-        {{ form.email }} 
-        {{ form.username }} 
+    <div class="tag">
+        {{ form.hidden_tag ()}}
+    </div>
+    <div class="pic">
         {{ form.profile_pic }} 
-        {{ form.bio }} 
+    </div>
+    <div class="email">
+        {{ form.email }}
+    </div>     
+    <div class="username">
+        {{ form.username }} 
+    </div>
+    <div class="bio">
+        {{ form.bio }}
+    </div>    
+    <div class="button_1">
         {{ form.submit }}
-    <p class="change-pw">
-        ¿Cambiar contraseña? <a href="#">Da click aquí.</a>
-    </p>
-    <a href="#">Eliminar cuenta.</a>
-        {{ url_for('borrar_cuenta')}}
+    </div>    
+    <div class="rest">
+        <p class="change-pw">
+            ¿Cambiar contraseña? <a href="#">Da click aquí.</a>
+        </p>
+        <a href="#">Eliminar cuenta.</a>
+            {{ url_for('borrar_cuenta')}}
+    </div>     
+        
 </form>  
 {% endblock %}
