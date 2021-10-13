@@ -6,3 +6,25 @@
 	text-align: center;
 	font-size: 35px;
 }
+
+.qr {
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+}
+.down {
+	position: absolute;
+  	bottom: 8px;
+  	right: 450px;
+  	font-size: 18px;
+}
+
+.ico_1,
+.ico_2,
+.ico_3,
+.ico_4 {
+	display: inline-block;
+	width: 40px;
+	justify-content: space-between;
+	margin: 15px;
+}

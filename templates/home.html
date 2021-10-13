@@ -8,11 +8,26 @@
 
 {% block content %}
 <div class="container">
+  <img src="{{ url_for('static', filename='images/pan.jpg') }}" alt="Cinque Terre" width="1000" height="300" class="bckground">
   <div class="title">
     Productos horneados
   </div>
-  <div id="qrcode">
-    <img src="https://www.codigos-qr.com/qr/php/qr_img.php?d=https%3A%2F%2Fproductoshorneados.herokuapp.com%2F&s=8&e=m" alt="Generador de Códigos QR Codes"/>
+  <div id="qrcode" class="qr_code">
+    <img src="https://www.codigos-qr.com/qr/php/qr_img.php?d=https%3A%2F%2Fproductoshorneados.herokuapp.com%2F&s=8&e=m" class="qr"/>
+  </div>
+  <div class="down">
+    <a href="https://www.facebook.com">
+      <img src="{{ url_for('static', filename='images/facebook.png') }}" class="ico_1">
+    </a>
+    <a href="https://www.facebook.com">
+      <img src="{{ url_for('static', filename='images/instagram.png') }}" class="ico_2">
+    </a>
+    <a href="https://www.facebook.com">
+      <img src="{{ url_for('static', filename='images/youtube.png') }}" class="ico_2">
+    </a>
+    <a href="https://www.facebook.com">
+      <img src="{{ url_for('static', filename='images/google.png') }}" class="ico_2">
+    </a>
   </div>
 </div>
 
