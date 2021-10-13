@@ -6,4 +6,4 @@ Elaborado por:
 
 ### Andrés Viloria De La Torre
 
-### Kevin S Quiroga
+### Kevin Steven Quiroga
