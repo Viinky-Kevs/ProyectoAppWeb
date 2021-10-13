@@ -1,5 +1,6 @@
 .title {
   text-align: center;
+  font-size: 30px;
 }
 
 .format {
@@ -24,6 +25,7 @@ button:hover {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
+  border-radius: 5px;
   background-color: #E73137;
 }
 
@@ -37,11 +39,20 @@ button:hover {
   border-radius: 50%;
 }
 
-.container {
-  padding: 16px;
-}
-
 span.psw {
   float: right;
   padding-top: 16px;
+}
+
+.remember,
+.email,
+.username,
+.password,
+.submit,
+.cancel,
+.register,
+.forgot {
+    display: flex;
+    justify-content: center;
+    align-items: center
 }

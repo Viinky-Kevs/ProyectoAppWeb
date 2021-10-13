@@ -14,24 +14,31 @@
   <form action="" method="POST" class="format">
     <div class="container">
       {{ registerform.hidden_tag() }}
-      <div class="field">
+      <div class="username">
         {{ registerform.username }}
       </div>
-      <div class="field">
+      <br>
+      <div class="email">
         {{ registerform.email }}
       </div>
-      <div class="field">
+      <br>
+      <div class="password">
         {{ registerform.password }}
       </div>
-      <div class="field">
+      <br>
+      <div class="submit">
         <input type='submit' value='Registrarse'>
       </div>
+      <br>
     </div>
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="cancel">
       <a href="{{ url_for('home') }}">
         <button type="button" class="cancelbtn">Cancelar</button>
       </a>
-      <span class="psw">
+    </div>
+    <br>
+    <div class="resgister">
+      <span>
         <a href="{{ url_for('login') }}" class="register">
           ¿Ya tienes una cuenta? Inicia Sesión
         </a>

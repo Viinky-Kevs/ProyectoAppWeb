@@ -21,29 +21,51 @@
       <img src="{{ url_for('static', filename='images/user.png')}}" class="avatar">
     </div>
     <div class="container">
-      {{ loginform.hidden_tag() }}
-      {{ loginform.username }}
-      {{ loginform.password }}
-      {{ loginform.submit }}
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
+      <div class="tag">
+        {{ loginform.hidden_tag() }}
+      </div>
+      <br>
+      <div class="username">
+        {{ loginform.username }}
+      </div>
+      <br>
+      <div class="password">
+        {{ loginform.password }}
+      </div>
+      <br>
+      <div class="submit">
+        {{ loginform.submit }}
+      </div>
+      <br>
+      <div class="remember">
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Sesión activa
+        </label>
+      </div>
+      
     </div>
-    <div class="container" style="background-color:#f1f1f1">
+    <br>
+    <div class="cancel">
       <a href="{{ url_for('home') }}">
         <button type="button" class="cancelbtn">Cancelar</button>
       </a>
+    </div>
+    <br>
+    <div class="forgot">
       <span class="psw">
         <a href="{{ url_for('olvide_contra') }}">
           ¿Olvidaste tu contraseña?
         </a>
       </span>
+    </div>
+    <br>
+    <div class="register">
       <span>
         <a href="{{ url_for('registrar') }}" class="register">
           ¿No tienes una cuenta? Registrate!
         </a>
       </span>
-      
+    </div>  
     </div>  
   </form>
   

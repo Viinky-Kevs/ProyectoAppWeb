@@ -232,7 +232,7 @@
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url({{ url_for('static', filename='images/pan.jpg') }});
+  background-image: url(/static/images/wallpaper.jpg);
 }
 .sidebar.open ~ .home-section{
   left: 250px;

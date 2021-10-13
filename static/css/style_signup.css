@@ -1,5 +1,6 @@
 .title {
   text-align: center;
+  font-size: 30px;
 }
 
 .format {
@@ -44,4 +45,17 @@ button:hover {
 span.psw {
   float: right;
   padding-top: 16px;
+}
+
+.remember,
+.email,
+.username,
+.password,
+.submit,
+.cancel,
+.register,
+.forgot {
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
