@@ -13,7 +13,6 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextA
 from wtforms.validators import InputRequired, Email, Length, ValidationError
 from PIL import Image
 import secrets
-import hashlib
 import os
 
 app = Flask(__name__) 
