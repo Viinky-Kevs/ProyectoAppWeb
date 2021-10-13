@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Perfil-usuario {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_olvide.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">
+        Olvide contraseña
+    </h1>
+    <form method="POST" action="">
+        <div class="tag">
+            {{ form.hidden_tag() }}
+        </div>
+        <br>
+        <div class="email">
+            {{ form.email}}
+        </div> 
+        <div class="submit">
+            {{ form.submit}}
+        </div>     
+    </form>
+</div>
+{% endblock %}

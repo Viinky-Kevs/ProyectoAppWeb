@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Perfil-usuario {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_resetear.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="title">
+        Reestablecer contraseña
+    </h1>
+</div>
+
+<form method="POST" action="">
+    <div class="tag">
+        {{ form.hidden_tag() }}
+    </div>
+    <br>
+    <div class="email">
+        {{ wtf.form_field(form.email)}}
+    </div>
+    <br>
+    <div class="password">
+        {{ wtf.form_field(form.password)}}
+    </div>
+    <br>
+    <div class="submit">
+        <button class="btn" type="submit">Enviar</button>
+    </div> 
+</form>
+{% endblock %}

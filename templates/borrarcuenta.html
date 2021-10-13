@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Perfil-usuario {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_borrar.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="title">
+        Eliminar mi cuenta
+    </h2>
+    <br>
+    <img src="{{ url_for('static', filename='images/delete.png') }}" class="image">
+    <form method="POST" action="" class="form">
+        <div class="tag">
+            {{ form.hidden_tag() }} 
+        </div>
+        <br>
+        <div class="email">
+            {{ form.email}}
+        </div>
+        <br>
+        <div class="username">
+            {{ form.username}}
+        </div> 
+        <br>
+        <div class="password">
+            {{ form.password }}
+        </div>
+        <br>
+        <br> 
+        <div class="submit">
+            {{ form.submit}}
+        </div>
+        <br>
+        <br>
+        <h1 class="title_2">
+            ¿Seguro quieres eliminar?
+        </h1>
+        <br>
+        <br>
+        <div class="rest">
+            <p>
+                Cuando elimines tu cuenta toda la información será eliminada.
+                Si no quieres eliminar tu cuenta por favor presiona Cancelar.
+            </p>
+        </div>
+        <br>
+        <div class="rest_2">
+            <a href="{{ url_for('perfil_usuario')}}">
+                <button type="button" class="cancelbtn">Cancelar</button>
+            </a>
+        </div> 
+    </form>
+</div>
+{% endblock %}

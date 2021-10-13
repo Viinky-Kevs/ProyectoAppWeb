@@ -30,14 +30,12 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
-'''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = os.environ.get("EMAIL_BLOGGY")
-app.config['MAIL_PASSWORD'] = os.environ.get("PASSWORD_BLOGGY")
-'''
+app.config['MAIL_USERNAME'] = 'productoshorneados.com'
+app.config['MAIL_PASSWORD'] = 'productos2022'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -305,26 +303,18 @@ def cambiar_contrasena():
 @login_required
 def borrar_cuenta():
 	delete_form = DeleteAccountForm()
-	sent_messages = Message.query.filter_by(sender = current_user).all()
-	received_messages = Message.query.filter_by(receiver = current_user).all()
 	#comments = Comment.query.filter_by(commenter=current_user).all()
 	user = User.query.filter_by(email = delete_form.email.data).first()
 	if delete_form.validate_on_submit():
 		if delete_form.email.data != current_user.email or delete_form.username.data != current_user.username:
 			flash('El email o nombre de usuario no esta asociado con tu cuenta.')
 			return redirect(url_for('borrar_cuenta'))
-		for message in sent_messages:
-			database.session.delete(message)
-		for message in received_messages:
-			database.session.delete(message)
-		#for comment in comments:
-		#	database.session.delete(comment)
 		
 		database.session.delete(user)
 		database.session.commit()
 		flash('Tu cuenta ha sido eliminada', 'Éxito!')
 		return redirect(url_for('home'))
-	return render_template("borrar_cuenta.html", form = delete_form, title = "Borrar mi cuenta")
+	return render_template("borrarcuenta.html", form = delete_form, title = "Borrar mi cuenta")
 
 def send_reset_email(user):
     token = user.get_reset_token()
@@ -345,7 +335,7 @@ def olvide_contra():
 		user = User.query.filter_by(email = forgot_form.email.data).first()
 		send_reset_email(user)
 		flash("Un email fue enviado a tu correo para reestablecer la contraseña.", 'Éxito!')
-	return render_template("olvide_contra.html", forgot_form = forgot_form, title="Olvidé contraseña")
+	return render_template("olvidecontra.html", form = forgot_form, title="Olvidé contraseña")
 
 @app.route("/resetear-contra/<token>", methods=["GET", "POST"])
 def resetear_contra(token):
