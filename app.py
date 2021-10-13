@@ -276,11 +276,11 @@ def registrar():
 
 	return render_template("signup.html", registerform = registerform)
 
-@app.route("/inicio-de-sesion", methods=['POST','GET'])
+@app.route("/inicio-de-sesion", methods = ['POST','GET'])
 def login():
 	loginform = LoginForm()
 	if loginform.validate_on_submit():
-		user = User.query.filter_by(username=loginform.username.data).first()
+		user = User.query.filter_by(username = loginform.username.data).first()
 		if user:
 			if bcrypt.check_password_hash(user.password, loginform.password.data):
 				login_user(user)
@@ -290,7 +290,7 @@ def login():
 		if not user:
 			flash("El usuario no existe.")
 	if current_user.is_authenticated:
-		return redirect('inicio-de-sesion')
+		return redirect('/')
 	else:
 		return render_template("login.html", loginform = loginform)
 
