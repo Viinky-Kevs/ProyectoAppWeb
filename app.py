@@ -284,13 +284,13 @@ def login():
 		if user:
 			if bcrypt.check_password_hash(user.password, loginform.password.data):
 				login_user(user)
-				return redirect(url_for('/'))
+				return redirect(url_for('inicio-de-sesion'))
 			if not bcrypt.check_password_hash(user.password, loginform.password.data):
 				flash("Contraseña incorrecta.")
 		if not user:
 			flash("El usuario no existe.")
 	if current_user.is_authenticated:
-		return redirect('/')
+		return redirect('inicio-de-sesion')
 	else:
 		return render_template("login.html", loginform = loginform)
 
