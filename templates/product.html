@@ -8,9 +8,12 @@
 
 {% block content %}
 <div class="container">
+    <br>
     <h1 class="title">
         Agregar producto a lista
     </h1>
+    <br>
+    <br>
     {{ form.hidden_tag() }}
     <div class="name-product">
         {{ form.nameproduct }}
@@ -34,7 +37,15 @@
     <br>
     <br>
     <div class="submit">
-        {{ form.submit }}
+        {{ form.submit(class="button_s") }}
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="other">
+        <a href="{{ url_for('dashboard') }}">
+            <button type="button">Dashboard</button>
+        </a>
     </div>
 </div>
 
