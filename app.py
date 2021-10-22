@@ -9,7 +9,7 @@ from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
 from flask_socketio import SocketIO, emit, send, join_room
 from flask_sslify import SSLify
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField
 from wtforms.validators import InputRequired, Email, Length, ValidationError
 from PIL import Image
 import secrets
@@ -172,12 +172,27 @@ class DeleteAccountForm(FlaskForm):
     password = PasswordField(validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Contraseña"})
     submit = SubmitField("Eliminar mi cuenta")
 
-
+# Formato comentario
 class CommentForm(FlaskForm):
     comment = TextAreaField('Comment', validators=[InputRequired(), Length(min=4)], render_kw={"placeholder": "Ingesar comentario"})
     submit = SubmitField("Realizar comentario")
 
+# Formato menu
 
+class MenuForm(FlaskForm):
+	nameproduct = StringField(validators=[InputRequired(), Length(min=1, max = 20)], 
+	render_kw={"placeholder":"Nombre producto"})
+	detailsproduct = TextAreaField([Length(min=1, max=1000)], 
+	render_kw={"placeholder": "Agregar detalles de plato"})
+	priceproduct = IntegerField(validators=[InputRequired(), Length(min=1, max = 10)], 
+	render_kw={"placeholder":"Precio producto"})
+	quatityproduct = IntegerField(validators=[InputRequired(), Length(min=1, max = 10)], 
+	render_kw={"placeholder":"Cantidad productos"})
+	imageproduct = FileField(validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+	submit = SubmitField("Publicar producto")
+
+
+# Foto de perfil del usuario
 def save_picture(form_profile_pic):
     rand_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_profile_pic.filename)
@@ -187,6 +202,21 @@ def save_picture(form_profile_pic):
     form_profile_pic.save(picture_path)
 
     output_size = (125, 125)
+    i = Image.open(form_profile_pic)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    return picture_name
+
+# Foto de plato
+def save_image(form_profile_pic):
+    rand_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_profile_pic.filename)
+    picture_name = rand_hex + f_ext
+    picture_path = os.path.join(
+        app.root_path, 'static/images_plates', picture_name)
+    form_profile_pic.save(picture_path)
+
+    output_size = (800, 800)
     i = Image.open(form_profile_pic)
     i.thumbnail(output_size)
     i.save(picture_path)

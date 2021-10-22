@@ -24,17 +24,16 @@
 	<div class="sidebar">
     <div class="logo-details">
       <i class='bx bx-restaurant' ></i>
-        <div class="logo_name">Restaurante</div>
+        <div class="logo_name">Aunte Anne's</div>
         <i class='bx bx-menu' id="btn" ></i>
     </div>
 
     <ul class="nav-list">
-
       	<!-- Sección buscar -->
       <li>
-          <i class='bx bx-search' ></i>
-         <input type="text" placeholder="Buscar...">
-         <span class="tooltip">Buscar</span>
+        <i class='bx bx-search' ></i>
+        <input type="text" placeholder="Buscar...">
+        <span class="tooltip">Buscar</span>
       </li>
 
       <!-- Sección inicio -->
@@ -48,84 +47,82 @@
 
       <!-- Sección menú -->
       <li>
-       <a href="{{ url_for('menu') }}">
-         <i class='bx bx-food-menu' ></i>
-         <span class="links_name">Carta</span>
-       </a>
-       <span class="tooltip">Carta</span>
-     </li>
+        <a href="{{ url_for('menu') }}">
+          <i class='bx bx-food-menu' ></i>
+          <span class="links_name">Carta</span>
+        </a>
+        <span class="tooltip">Carta</span>
+      </li>
 
     <!-- Sección para iniciar sesión -->
-    {% if current_user.is_authenticated %}
-    <li>
-      <a href="{{ url_for('perfil_usuario') }}">
-        <i class='bx bx-user' ></i>
-        <span class="links_name"> {{current_user.username}} </span>
-      </a>
-      <span class="tooltip"> {{current_user.username}} </span>
-    </li>
+      {% if current_user.is_authenticated %}
+      <li>
+        <a href="{{ url_for('perfil_usuario') }}">
+          <i class='bx bx-user' ></i>
+          <span class="links_name"> {{current_user.username}} </span>
+        </a>
+        <span class="tooltip"> {{current_user.username}} </span>
+      </li>
 
-    <li>
-      <a href="{{ url_for('cerrar_sesion') }}">
-        <i class='bx bx-log-out'></i>
-        <span class="links_name"> Cerrar sesión </span>
-      </a>
-      <span class="tooltip"> Cerrar sesión </span>
-    </li>
+      <li>
+        <a href="{{ url_for('cerrar_sesion') }}">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name"> Cerrar sesión </span>
+        </a>
+        <span class="tooltip"> Cerrar sesión </span>
+      </li>
 
-    {% else %}
+      {% else %}
 
-     <li>
-       <a href="{{ url_for('login') }}">
-         <i class='bx bx-user' ></i>
-         <span class="links_name">Iniciar Sesión</span>
-       </a>
-       <span class="tooltip">Iniciar Sesión</span>
-     </li>
+      <li>
+        <a href="{{ url_for('login') }}">
+          <i class='bx bx-user' ></i>
+          <span class="links_name">Iniciar Sesión</span>
+        </a>
+        <span class="tooltip">Iniciar Sesión</span>
+      </li>
 
-    {% endif %}
+      {% endif %}
 
      <!-- Sección lista de deseos -->
-     <li>
-       <a href="{{ url_for('lista') }}">
-         <i class='bx bx-heart-circle'></i>
-         <span class="links_name">Lista de deseos</span>
-       </a>
-       <span class="tooltip">Lista</span>
-     </li>
+      <li>
+        <a href="{{ url_for('lista') }}">
+          <i class='bx bx-heart-circle'></i>
+          <span class="links_name">Lista de deseos</span>
+        </a>
+        <span class="tooltip">Lista</span>
+      </li>
 
      <!-- Sección compras -->
-     <li>
-       <a href="{{ url_for('carrito') }}">
-         <i class='bx bx-cart' ></i>
-         <span class="links_name">Carrito de compras</span>
-       </a>
-       <span class="tooltip">Carrito</span>
-     </li>
+      <li>
+        <a href="{{ url_for('carrito') }}">
+          <i class='bx bx-cart' ></i>
+          <span class="links_name">Carrito de compras</span>
+        </a>
+        <span class="tooltip">Carrito</span>
+      </li>
 
      <!-- Sección ajustes de visualización -->
-     <li>
-       <a href="{{ url_for('ajustes') }}">
-         <i class='bx bx-cog' ></i>
-         <span class="links_name">Ajustes</span>
-       </a>
-       <span class="tooltip">Ajustes</span>
-     </li> 
-    <!-- Sección logo e info del grupo -->
-    <li class="profile">
-        <div class="profile-details">
-           	<img src="{{ url_for('static', filename='images/uninorte.png')}}" alt="profileImg">
-           	<div class="name_job">
-             	<div class="name">Grupo 4</div>
-             	<div class="uni">Uninorte-Mintic</div>
-           	</div>
-        </div>
-         
-        <a href="https://github.com/Viinky-Kevs/ProyectoAppWeb" target="_blank">
-        	<i class='bx bxl-github' id="github" ></i>
+      <li>
+        <a href="{{ url_for('ajustes') }}">
+          <i class='bx bx-cog' ></i>
+          <span class="links_name">Ajustes</span>
         </a>
-         
-    </li>
+        <span class="tooltip">Ajustes</span>
+      </li> 
+    <!-- Sección logo e info del grupo -->
+      <li class="profile">
+          <div class="profile-details">
+              <img src="{{ url_for('static', filename='images/uninorte.png')}}" alt="profileImg">
+              <div class="name_job">
+                <div class="name">Grupo 4</div>
+                <div class="uni">Uninorte-Mintic</div>
+              </div>
+          </div>
+          <a href="https://github.com/Viinky-Kevs/ProyectoAppWeb" target="_blank">
+            <i class='bx bxl-github' id="github" ></i>
+          </a>    
+      </li>
     </ul>
   </div>
   <section class="home-section">
@@ -133,8 +130,6 @@
 
   	{% endblock %}
   </section>
-
   <script type="text/javascript" src="{{ url_for('static', filename='javascript/script_base.js') }}"></script>
-
 </body>
 </html>
