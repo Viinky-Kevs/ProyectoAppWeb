@@ -15,7 +15,11 @@
     padding: 10px;
     width: 100%;
     height: 100%;
-    background: white;
+}
+
+.right {
+    background-color: bisque;
+    border-radius: 10px;
 }
 .container {
     width: 100%;
