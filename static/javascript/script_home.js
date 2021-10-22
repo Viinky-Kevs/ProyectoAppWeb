@@ -8,11 +8,11 @@ var slideNumber = 0;
 
 //image slider next button
 nextBtn.addEventListener("click", () => {
-    slides.forEach((slide) => {
-        slide.classList.remove("active");
+    slides.forEach((slides) => {
+        slides.classList.remove("active");
     });
-    slideIcons.forEach((slideIcon) => {
-        slideIcon.classList.remove("active");
+    slideIcons.forEach((slideIcons) => {
+        slideIcons.classList.remove("active");
     });
 
     slideNumber++;
@@ -27,11 +27,11 @@ nextBtn.addEventListener("click", () => {
 
 //image slider previous button
 prevBtn.addEventListener("click", () => {
-    slides.forEach((slide) => {
-        slide.classList.remove("active");
+    slides.forEach((slides) => {
+        slides.classList.remove("active");
     });
-    slideIcons.forEach((slideIcon) => {
-        slideIcon.classList.remove("active");
+    slideIcons.forEach((slideIcons) => {
+        slideIcons.classList.remove("active");
     });
 
     slideNumber--;
@@ -49,11 +49,11 @@ var playSlider;
 
 var repeater = () => {
     playSlider = setInterval(function () {
-        slides.forEach((slide) => {
-            slide.classList.remove("active");
+        slides.forEach((slides) => {
+            slides.classList.remove("active");
         });
-        slideIcons.forEach((slideIcon) => {
-            slideIcon.classList.remove("active");
+        slideIcons.forEach((slideIcons) => {
+            slideIcons.classList.remove("active");
         });
 
         slideNumber++;
