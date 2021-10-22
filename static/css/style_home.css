@@ -1,18 +1,44 @@
+
 .title {
 	text-align: center;
 	font-size: 35px;
+}
+
+.images {
+	width: 800px;
+	height: 500px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.images img {
+	width: 400px;
+	border-radius: 10px;
+}
+
+.slider {
+	width: 500%;
+	height: 500px;
+	display: flex;
+}
+
+.slider input {
+	display: none;
 }
 
 .qr {
 	display: flex;
 	margin-left: auto;
 	margin-right: auto;
+	width: 100px;
 }
 .down {
 	position: absolute;
-  	bottom: 8px;
-  	right: 450px;
-  	font-size: 18px;
+  	bottom: 0;
+	right: 0;
+  	font-size: 0;
 }
 
 .ico_1,
