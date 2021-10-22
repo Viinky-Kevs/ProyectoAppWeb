@@ -58,18 +58,30 @@ class User(database.Model, UserMixin):
 	username = database.Column(database.String(20), nullable=False, unique=True)
 	password = database.Column(database.String(80), nullable=False)
 	profile_pic = database.Column(database.String(40), nullable=False, default='default.jpg')
-	#commenter = database.relationship('Comment', backref='commenter', lazy='dynamic')
-	#wish = database.relationship('Wish', backref='liker', lazy='dynamic')
 	bio_content = database.Column(database.String(1000))
 	verified = database.Column(database.Boolean(), default=False)
+	commenter = database.relationship('Comment', backref='commenter', lazy='dynamic')
+	wish = database.relationship('Wish', backref='liker', lazy='dynamic')
 
-'''
 class Comment(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     commented_id = database.Column(database.Integer, database.ForeignKey('post.id'))
     commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
-    comment_body = database.Column(database.String(100))
-'''
+    comment_body = database.Column(database.String(200))
+
+class Menu(database.Model):
+	id = database.Column(database.Integer, primary_key=True)
+	plate = database.Column(database.String(30), nullable = False)
+	price = database.Column(database.Integer)
+	quantity = database.Column(database.Integer)
+	score = database.Column(database.Integer)
+	details = database.Column(database.Text)
+	image_prod = database.Column(database.String(40), nullable=False, default='pan.jpg')
+
+class Wish(database.Model):
+	id = database.Column(database.Integer, primary_key=True)
+	product_id = database.Column(database.Integer, database.ForeignKey('plate.id'))
+	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
 #Administrador
 class AdminModelView(ModelView):
