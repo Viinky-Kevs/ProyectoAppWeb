@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Agregar-producto {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_agregate.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">
+        Agregar producto a lista
+    </h1>
+    {{ form.hidden_tag() }}
+    <div class="name-product">
+        {{ form.nameproduct }}
+    </div>
+    <br>
+    <div class="price-product">
+        {{ form.priceproduct }}
+    </div>
+    <br>
+    <div class="quantity-product">
+        {{ form.quatityproduct }}
+    </div>
+    <br>
+    <div class="details_product">
+        {{ form.detailsproduct }}
+    </div>
+    <br>
+    <div class="image-product">
+        {{ form.imageproduct }}
+    </div>
+    <br>
+    <br>
+    <div class="submit">
+        {{ form.submit }}
+    </div>
+</div>
+
+
+{% endblock %}

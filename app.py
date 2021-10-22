@@ -8,8 +8,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
 from flask_socketio import SocketIO, emit, send, join_room
-from flask_sslify import SSLify
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField
 from wtforms.validators import InputRequired, Email, Length, ValidationError
 from PIL import Image
 import secrets
@@ -259,6 +258,28 @@ def dashboard():
 	return render_template("dashboard.html")
 
 @login_required
+@app.route("/admin-dash/agregar-producto")
+def agregar_producto():
+	form = MenuForm()
+	if form.validate_on_submit():
+		if form.imageproduct.data:
+			product_i = save_image(form.imageproduct.data)
+		
+	name_product = form.nameproduct.data
+	price_product = form.priceproduct.data
+	details_product = form.detailsproduct.data
+	quantity_product = form.quatityproduct.data
+	database.session.commit()
+	flash("El producto ha sido agregado correctamente!")
+
+	return render_template("product.html", 
+							name = name_product,
+							price = price_product,
+							details = details_product,
+							quantity = quantity_product,
+							form = form)
+
+@login_required
 @app.route("/perfil-usuario", methods=['GET', 'POST'])
 def perfil_usuario():
 	form = UpdateAccount()
@@ -279,7 +300,12 @@ def perfil_usuario():
 		form.email.data = current_user.email
 		form.bio.data = current_user.bio_content
 		profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-	return render_template("usuario.html", name=current_user.username, email=current_user.email, title="My Profile", form=form,  profile_pic=profile_pic)
+	return render_template("usuario.html", 
+							name=current_user.username, 
+							email=current_user.email, 
+							title="My Profile", 
+							form=form,  
+							profile_pic=profile_pic)
 
 @app.route("/registrar-usuario", methods=['POST','GET'])
 def registrar():
