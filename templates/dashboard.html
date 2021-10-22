@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="admin">
+<div class="admin">
             <div id="title_p">
                 <h1>
                     Dashboard Administrativo
@@ -23,55 +23,59 @@
             <div id="column_1">
                 
                 <h3 >
-                    ###### usuarios activos
+                    ###### Usuarios activos
                 </h3>
                 <br>
                 <a href="#">
-                    <h3>
+                    <button type="button">
                         <i class='bx bx-user-plus' ></i> &nbsp; Registrar Usuario
-                    </h3>
+                    </button>
                 </a>
                 <br>
+                <br>
                 <a href="#">
-                    <h3>
+                    <button type="button">
                         <i class='bx bx-user-check' ></i> &nbsp; Editar Usuario
-                    </h3>
+                    </button>
                 </a>
                 <br>
+                <br>
                 <a href="#">
-                    <h3>
+                    <button type="button">
                         <i class='bx bx-user-x' ></i> &nbsp; Eliminar Usuario
-                    </h3>
+                    </button>
                 </a>
             </div>
             <div id="plates">
                 <h2>
-                    Menús
+                    Productos
                 </h2>
             </div>
             <br>
             <div id="column_2">
                 
                 <h3 >
-                    ###### Platos publicados
+                    ###### Productos publicados
                 </h3>
                 <br>
                 <a href="{{ url_for('agregar_producto') }}">
-                    <h3>
-                        <i class='bx bx-plus-circle' ></i> &nbsp; Adicionar Plato
-                    </h3>
+                    <button type="button">
+                        <i class='bx bx-plus-circle'></i> &nbsp; Adicionar Producto
+                    </button>
                 </a>
                 <br>
-                <a href="#">
-                    <h3>
-                        <i class='bx bx-list-check'></i> &nbsp; Editar Plato
-                    </h3>
-                </a>
                 <br>
                 <a href="#">
-                    <h3>
-                        <i class='bx bx-minus-circle' ></i> &nbsp; Eliminar Plato
-                    </h3>
+                    <button type="button">
+                        <i class='bx bx-list-check'></i> &nbsp; Editar Producto
+                    </button>
+                </a>
+                <br>
+                <br>
+                <a href="#">
+                    <button type="button">
+                        <i class='bx bx-minus-circle' ></i> &nbsp; Eliminar Producto
+                    </button>
                 </a>
             </div>
             <div id="comments">
@@ -85,22 +89,25 @@
                     ###### comentarios publicados
                 </h3>
                 <br>
+                <br>
                 <a href="#">
-                    <h3>
+                    <button type="button">
                         <i class='bx bxs-book-open' ></i> &nbsp; Ver platos con comentarios
-                    </h3>
+                    </button>
                 </a>
                 <br>
+                <br>
                 <a href="#">
-                    <h3>
+                    <button type="button">
                         <i class='bx bx-edit-alt' ></i> &nbsp; Editar comentarios
-                    </h3>
+                    </button>
                 </a>
                 <br>
+                <br>
                 <a href="#">
-                    <h3>
-                        <i class='bx bx-checkbox-minus' ></i> &nbsp; Eliminar comentario
-                    </h3>
+                    <button type="button">
+                        <i class='bx bx-checkbox-minus'></i> &nbsp; Eliminar comentario
+                    </button>
                 </a>
             </div>
             <div id="numbers">
