@@ -83,7 +83,7 @@ class User(database.Model, UserMixin):
 
 class Comment(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    commented_id = database.Column(database.Integer, database.ForeignKey('menu.id'))
+    commented_id = database.Column(database.Integer, database.ForeignKey('product.id'))
     commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
     comment_body = database.Column(database.String(200))
 
@@ -196,6 +196,11 @@ class ProductForm(FlaskForm):
 	render_kw={"placeholder": "Agregar detalles de plato"})
 	imageproduct = FileField(validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	submit = SubmitField("Publicar producto")
+
+def make_comment():
+	form = CommentForm()
+	if form.validate_on_submit():
+		new_comment = User()
 
 
 # Foto de perfil del usuario

@@ -23,7 +23,7 @@
                 {{ users }} Usuarios activos
             </h3>
             <br>
-            <a href="#">
+            <a href="{{ url_for('registrar') }}">
                 <button type="button">
                     <i class='bx bx-user-plus'></i> &nbsp; Registrar Usuario
                 </button>
@@ -37,7 +37,7 @@
             </a>
             <br>
             <br>
-            <a href="#">
+            <a href="{{ url_for('borrar_cuenta') }}">
                 <button type="button">
                     <i class='bx bx-user-x'></i> &nbsp; Eliminar Usuario
                 </button>

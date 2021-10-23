@@ -8,6 +8,8 @@
 
 {% block content %}
 <div class="login-page">
+  <br>
+  <br>
   <h1 class="title">
     Registro de nuevo usuario
   </h1>
@@ -43,7 +45,17 @@
           ¿Ya tienes una cuenta? Inicia Sesión
         </a>
       </span>
-    </div> 
+    </div>
   </form>
+  <br>
+  <br>
+  <br>
+  {% if current_user.username == "SuperAdmin" %}
+  <div class="buttone">
+    <a href="{{ url_for('dashboard') }}">
+      <button type="button" class="buttond">Dashboard</button>
+    </a>
+  </div>
+  {% endif %}
 </div>    
 {% endblock %}

@@ -38,8 +38,27 @@
     text-align: center;
 }
 
+.rest_2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .cancelbtn {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    border-radius: 10px;
+    color:white;
+    cursor: pointer;
+}
+
+.cancelbtn:hover{
+    opacity: 0.6;
+}
+
+.submitb {
+    border-radius: 10px;
+    color: white;
+    background-color: #E73137;
+    cursor: pointer;
+    widht: 500px;
+    heigth: 100px;
 }
