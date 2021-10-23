@@ -156,7 +156,7 @@ class UpdateAccount(FlaskForm):
 
 
 class ForgotPasswordForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Email(message="Email invalido"), Length(max=50)], render_kw={"placeholder": "Email"})
+    email = StringField(validators=[InputRequired(), Email(message="Email invalido"), Length(max=50)], render_kw={"placeholder": "Email"})
     submit = SubmitField("Enviar correo de nueva contraseña")
 
 

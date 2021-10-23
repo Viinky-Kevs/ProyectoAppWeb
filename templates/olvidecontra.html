@@ -8,20 +8,38 @@
 
 {% block content %}
 <div class="container">
+    <br>
+    <br>
     <h1 class="title">
         Olvide contraseña
     </h1>
+    <br>
+    <div class="imaged">
+        <img src="{{ url_for('static', filename='images/forgot.jpg') }}" class="image">
+    </div>
+    
     <form method="POST" action="">
         <div class="tag">
             {{ form.hidden_tag() }}
         </div>
         <br>
         <div class="email">
-            {{ form.email}}
+            {{ form.email }}
         </div> 
+        <br>
+        <br>
         <div class="submit">
-            {{ form.submit}}
+            {{ form.submit(class="submitb") }}
         </div>     
     </form>
+    <br>
+    <br>
+    <div class="outher">
+        <a href="{{ url_for('login') }}">
+            <button type="button">
+                Cancelar
+            </button>
+        </a>
+    </div>
 </div>
 {% endblock %}
