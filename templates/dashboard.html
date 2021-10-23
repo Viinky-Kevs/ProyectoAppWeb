@@ -20,7 +20,7 @@
                 Usuarios
             </h2>
             <h3>
-                ###### Usuarios activos
+                {{ users }} Usuarios activos
             </h3>
             <br>
             <a href="#">
@@ -51,7 +51,7 @@
                 Productos
             </h2>
             <h3>
-                ###### Productos publicados
+                {{ products }} Productos publicados
             </h3>
             <br>
             <a href="{{ url_for('agregar_producto') }}">
@@ -81,7 +81,7 @@
                 Comentarios
             </h2>
             <h3>
-                ###### comentarios publicados
+                {{ comments }} comentarios publicados
             </h3>
             <br>
             <br>

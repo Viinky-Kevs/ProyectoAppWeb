@@ -101,18 +101,6 @@ class Wish(database.Model):
 	product_id = database.Column(database.Integer, database.ForeignKey('menu.id'))
 	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
-#Administrador
-class AdminModelView(ModelView):
-    def is_accessible(self):
-        if 'logged_in' in session:
-            return True
-        else:
-            abort(403)
-
-admin = Admin(app, name='Admin-restaurante', template_mode='bootstrap4')
-admin.add_view(AdminModelView(User, database.session))
-#admin.add_view(AdminModelView(Comment, database.session))
-
 class RegisterForm(FlaskForm):
 	email = StringField("Email",validators=[InputRequired(), Email(message="Email invalido"), Length(max=50)], render_kw={"placeholder": "Email"})
 	username = StringField(validators=[InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder":"Usuario"})
@@ -275,7 +263,12 @@ def plato():
 @login_required
 def dashboard():
 	if current_user.username == "SuperAdmin":
-		return render_template("dashboard.html")
+		length_users = len(User.query.filter().all())
+		length_comments = len(Comment.query.filter().all())
+		length_products = len(Menu.query.filter().all())
+		return render_template("dashboard.html", users = length_users,
+												comments = length_comments,
+												products = length_products)
 	else:
 		return redirect(url_for('home'))
 
@@ -294,22 +287,15 @@ def agregar_producto():
 	if current_user.username == "SuperAdmin":
 		form = MenuForm()
 		if form.validate_on_submit():
-			if form.imageproduct.data:
-				product_i = save_image(form.imageproduct.data)
-			
-		name_product = form.nameproduct.data
-		price_product = form.priceproduct.data
-		details_product = form.detailsproduct.data
-		quantity_product = form.quatityproduct.data
-		database.session.commit()
-		flash("El producto ha sido agregado correctamente!")
+			product = Menu(plate = form.nameproduct.data,
+							price = form.priceproduct.data,
+							quantity = form.quatityproduct.data,
+							details = form.detailsproduct.data,
+							image_prod = form.imageproduct.data)
+			database.session.add(product)
+			database.session.commit()
+		return render_template("product.html", form = form)
 
-		return render_template("product.html", 
-								name = name_product,
-								price = price_product,
-								details = details_product,
-								quantity = quantity_product,
-								form = form)
 	else:
 		return redirect(url_for('home'))
 
