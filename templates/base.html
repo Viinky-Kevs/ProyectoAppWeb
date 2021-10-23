@@ -63,7 +63,15 @@
         </a>
         <span class="tooltip"> {{current_user.username}} </span>
       </li>
-
+      {% if current_user.username == "SuperAdmin" %}
+      <li>
+        <a href="{{ url_for('dashboard') }}">
+          <i class='bx bxs-dashboard'></i>
+          <span class="links_name"> Dashboard </span>
+        </a>
+        <span class="tooltip"> Dashboard </span>
+      </li>
+      {% endif %}
       <li>
         <a href="{{ url_for('cerrar_sesion') }}">
           <i class='bx bx-log-out'></i>

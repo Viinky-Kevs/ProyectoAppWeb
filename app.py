@@ -239,8 +239,8 @@ def busqueda():
 def ajustes():
 	return render_template("ajustes.html")
 
-@login_required
 @app.route("/carrito-de-compras")
+@login_required
 def carrito():
 	return render_template("carrito.html")
 
@@ -252,10 +252,13 @@ def menu():
 def plato():
 	return render_template("plato.html")
 
-@login_required
 @app.route("/admin-dash")
+@login_required
 def dashboard():
-	return render_template("dashboard.html")
+	if current_user.username == "SuperAdmin":
+		return render_template("dashboard.html")
+	else:
+		return redirect(url_for('home'))
 
 @login_required
 @app.route("/admin-dash/agregar-producto")
