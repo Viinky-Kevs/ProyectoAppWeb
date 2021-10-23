@@ -83,7 +83,7 @@ class User(database.Model, UserMixin):
 
 class Comment(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    commented_id = database.Column(database.Integer, database.ForeignKey('post.id'))
+    commented_id = database.Column(database.Integer, database.ForeignKey('menu.id'))
     commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
     comment_body = database.Column(database.String(200))
 
@@ -98,7 +98,7 @@ class Menu(database.Model):
 
 class Wish(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
-	product_id = database.Column(database.Integer, database.ForeignKey('plate.id'))
+	product_id = database.Column(database.Integer, database.ForeignKey('menu.id'))
 	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
 #Administrador
