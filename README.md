@@ -2,6 +2,6 @@
 
 Elaborado por:
 
-### Lina Florez Albanes
+### Lina Florez Albanes (Diseño y Front End)
 
-### Kevin Steven Quiroga
+### Kevin Steven Quiroga (Front End y Back End)
