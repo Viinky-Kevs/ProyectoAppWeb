@@ -8,6 +8,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
 from flask_socketio import SocketIO, emit, send, join_room
+from flask_msearch import Search
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField
 from wtforms.validators import InputRequired, Email, Length, ValidationError
 from PIL import Image
@@ -41,6 +42,9 @@ app.config['MAIL_USE_SSL'] = True
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+
+search = Search()
+search.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
