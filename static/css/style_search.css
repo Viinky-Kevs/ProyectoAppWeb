@@ -3,11 +3,20 @@
 	font-size: 35px;
 }
 
-.search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.tag-1 {
+  float: left;
 }
+
+.form-1 {
+  float: right;
+}
+
+.container {
+  position: absolute;
+  bottom: 0;
+  justify-content: center;
+}
+
 .title_2{
   text-align: center;
 	font-size: 15px;

@@ -12,25 +12,38 @@
 </h1>
 <br>
 <br>
-<div class="search">
-	<input type="search" placeholder="Buscar...." id = "searching">
-</div>
-<h3 class="title_2">
-	¿Te fue útil la información?
-</h3>
-<br>
-<div class="survey">
-	<div class="options">
-		<input type="radio" name="survey_1" value="1">Si
-		<input type="radio" name="survey_1" value="2">No  	
+<div class="tabsearch">
+	<div class="tag-1">
+		<strong>
+			Buscando para: {{ tag }}
+		</strong>
+	</div>
+	<div class="form-1">
+		<form action="" method="POST" autocomplete="on">
+			<input type="text" class="form-control" name="tag" id="tag" placeholder="Buscando..." />
+			<input type="submit" value="Buscar" class="form-control btn btn-primary " name="">
+		</form>
 	</div>
 </div>
-<br>
-<div class="submit">
-	<button type="button">
-		Enviar
-	</button>
+<div class="container">
+	<h3 class="title_2">
+		¿Te fue útil la información?
+	</h3>
+	<br>
+	<div class="survey">
+		<div class="options">
+			<input type="radio" name="survey_1" value="1">Si
+			<input type="radio" name="survey_1" value="2">No
+		</div>
+	</div>
+	<br>
+	<div class="submit">
+		<button type="button">
+			Enviar
+		</button>
+	</div>
 </div>
+
 
 <div>
 	{{ key }}

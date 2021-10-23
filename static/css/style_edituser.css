@@ -12,6 +12,14 @@
     vertical-align: middle;
 }
 
+.tag-1 {
+    float: left;
+}
+
+.form-1 {
+    float: right;
+}
+
 .other {
     display: flex;
     justify-content: center;

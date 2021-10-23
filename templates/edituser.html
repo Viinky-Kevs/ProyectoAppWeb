@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Editar-usuarios {% endblock %}
+{% block title %} Lista-usuarios {% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style_edituser.css') }}">
@@ -13,6 +13,22 @@
 </h1>
 <br>
 <div class="container">
+    <div class="tabsearch">
+        <div class="tag-1">
+            <strong>
+                Buscando para: {{ tag }}
+            </strong>
+        </div>
+        <div class="form-1">
+            <form action="" method="POST" autocomplete="on">
+                <input type="text" class="form-control" name="tag" id="tag" placeholder="Buscando..." />
+                <input type="submit" value="Buscar" class="form-control btn btn-primary " name="">
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
     <table id="tableu" class="table table-striped table-bordered" style="width: 100%">
         <thead>
             <tr>

@@ -87,7 +87,7 @@ class Comment(database.Model):
     commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
     comment_body = database.Column(database.String(200))
 
-class Menu(database.Model):
+class Products(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
 	plate = database.Column(database.String(30), nullable = False)
 	price = database.Column(database.Integer)
@@ -98,7 +98,7 @@ class Menu(database.Model):
 
 class Wish(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
-	product_id = database.Column(database.Integer, database.ForeignKey('menu.id'))
+	product_id = database.Column(database.Integer, database.ForeignKey('product.id'))
 	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
 class RegisterForm(FlaskForm):
@@ -185,15 +185,15 @@ class CommentForm(FlaskForm):
 
 # Formato menu
 
-class MenuForm(FlaskForm):
+class ProductForm(FlaskForm):
 	nameproduct = StringField(validators=[InputRequired(), Length(min=1, max = 20)], 
 	render_kw={"placeholder":"Nombre producto"})
-	detailsproduct = TextAreaField([Length(min=1, max=1000)], 
-	render_kw={"placeholder": "Agregar detalles de plato"})
 	priceproduct = IntegerField(validators=[InputRequired(), Length(min=1, max = 10)], 
 	render_kw={"placeholder":"Precio producto"})
 	quatityproduct = IntegerField(validators=[InputRequired(), Length(min=1, max = 10)], 
 	render_kw={"placeholder":"Cantidad productos"})
+	detailsproduct = TextAreaField([Length(min=1, max=1000)], 
+	render_kw={"placeholder": "Agregar detalles de plato"})
 	imageproduct = FileField(validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	submit = SubmitField("Publicar producto")
 
@@ -237,9 +237,13 @@ def home():
 def lista():
 	return render_template("listadeseos.html")
 
-@app.route("/busqueda")
+@app.route("/busqueda", methods=['GET', 'POST'])
 def busqueda():
-	
+	if request.method == 'POST' and 'tag' in request.form:
+		tag = request.form["tag"]
+		search = "%{}%".format(tag)
+		products = Products.query.filter(User.username.like(search))#.paginate(per_page = pages, error_out = True)
+		return render_template("buscar.html", product = products, tag = tag)
 	return render_template("buscar.html")
 
 @app.route("/ajustes")
@@ -265,36 +269,43 @@ def dashboard():
 	if current_user.username == "SuperAdmin":
 		length_users = len(User.query.filter().all())
 		length_comments = len(Comment.query.filter().all())
-		length_products = len(Menu.query.filter().all())
+		length_products = len(Products.query.filter().all())
 		return render_template("dashboard.html", users = length_users,
 												comments = length_comments,
 												products = length_products)
 	else:
 		return redirect(url_for('home'))
 
-@app.route("/admin-dash/editar-usuario")
+@app.route("/admin-dash/editar-usuario", methods=['GET','POST'])
 @login_required
-def editar_usuario():
+def lista_usuario():
 	if current_user.username == "SuperAdmin":
+		pages = 5
 		users = User.query.filter().all()
+		if request.method == 'POST' and 'tag' in request.form:
+			tag = request.form["tag"]
+			search = "%{}%".format(tag)
+			users = User.query.filter(User.username.like(search))#.paginate(per_page = pages, error_out = True)
+			return render_template("edituser.html", users = users, tag = tag)
+
 		return render_template("edituser.html", users = users)
 	else:
 		return redirect(url_for('home'))
 
-@app.route("/admin-dash/agregar-producto")
+@app.route("/admin-dash/agregar-producto", methods=['GET', 'POST'])
 @login_required
 def agregar_producto():
 	if current_user.username == "SuperAdmin":
-		form = MenuForm()
-		if form.validate_on_submit():
-			product = Menu(plate = form.nameproduct.data,
-							price = form.priceproduct.data,
-							quantity = form.quatityproduct.data,
-							details = form.detailsproduct.data,
-							image_prod = form.imageproduct.data)
-			database.session.add(product)
+		product_form = ProductForm()
+		if product_form.validate_on_submit():
+			new_product = Products(plate = product_form.nameproduct.data,
+			price = product_form.priceproduct.data, quantity = product_form.quatityproduct.data,
+			details = product_form.detailsproduct.data, 
+			image_prod = product_form.imageproduct.data)
+			database.session.add(new_product)
 			database.session.commit()
-		return render_template("product.html", form = form)
+			return redirect('dashboard')
+		return render_template("product.html", form = product_form)
 
 	else:
 		return redirect(url_for('home'))
@@ -303,7 +314,7 @@ def agregar_producto():
 @login_required
 def lista_producto():
 	if current_user.username == "SuperAdmin":
-		products = Menu.query.filter().all()
+		products = Products.query.filter().all()
 		return render_template("listproducts.html", products = products)
 	else:
 		return redirect(url_for('home'))
@@ -343,7 +354,8 @@ def registrar():
 	registerform = RegisterForm()
 	if registerform.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(registerform.password.data)
-		new_user = User(username=registerform.username.data, password=hashed_password)
+		new_user = User(username=registerform.username.data, password=hashed_password,
+		email = registerform.email.data)
 		database.session.add(new_user)
 		database.session.commit()
 		flash("Tu cuenta ha sido creada exitosamente!")
@@ -374,7 +386,6 @@ def login():
 def cerrar_sesion():
 	session.clear()
 	logout_user()
-	flash("Has cerrado sesión.", 'info')
 	return redirect(url_for('home'))
 
 @app.route("/cambiar-contra", methods=['GET', 'POST'])
