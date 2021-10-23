@@ -282,9 +282,12 @@ def agregar_producto():
 							quantity = quantity_product,
 							form = form)
 
-@login_required
+
 @app.route("/perfil-usuario", methods=['GET', 'POST'])
+@login_required
 def perfil_usuario():
+	if current_user.username == "SuperAdmin":
+		return redirect(url_for('dashboard'))
 	form = UpdateAccount()
 	if form.validate_on_submit():
 		if form.profile_pic.data:
