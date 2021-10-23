@@ -226,8 +226,8 @@ def save_image(form_profile_pic):
 def home():
 	return render_template("home.html")
 
-@login_required
 @app.route("/lista-de-deseos")
+@login_required
 def lista():
 	return render_template("listadeseos.html")
 
