@@ -37,7 +37,11 @@ app.config['MAIL_USERNAME'] = 'productoshorneados.com'
 app.config['MAIL_PASSWORD'] = 'productos2022'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-
+app.config['MSEARCH_INDEX_NAME'] = 'msearch'
+app.config['MSEARCH_PRIMARY_KEY'] = 'id'
+app.config['MSEARCH_ENABLE'] = True
+#app.config['MSEARCH_LOGGER'] = logging.DEBUG
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -54,6 +58,17 @@ def load_user(user_id):
 def make_session_permanent():
     session.permanent = True
 
+
+class Post(database.Model):
+	__tablename__ = 'basic_posts'
+	__searchable__ = ['title', 'content']
+
+	id = database.Column(database.Integer, primary_key = True)
+	title = database.Column(database.String(49))
+	content = database.Column(database.Text)
+
+	def __rep__(self):
+		return '<Post:{}>'.format(self.title)
 
 class User(database.Model, UserMixin):
 	id = database.Column(database.Integer, primary_key=True)
@@ -215,8 +230,7 @@ def save_image(form_profile_pic):
     rand_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_profile_pic.filename)
     picture_name = rand_hex + f_ext
-    picture_path = os.path.join(
-        app.root_path, 'static/images_plates', picture_name)
+    picture_path = os.path.join(app.root_path, 'static/images_plates', picture_name)
     form_profile_pic.save(picture_path)
 
     output_size = (800, 800)
@@ -237,6 +251,7 @@ def lista():
 
 @app.route("/busqueda")
 def busqueda():
+	
 	return render_template("buscar.html")
 
 @app.route("/ajustes")
@@ -264,28 +279,48 @@ def dashboard():
 	else:
 		return redirect(url_for('home'))
 
+@app.route("/admin-dash/editar-usuario")
 @login_required
+def editar_usuario():
+	if current_user.username == "SuperAdmin":
+		users = User.query.filter().all()
+		return render_template("edituser.html", users = users)
+	else:
+		return redirect(url_for('home'))
+
 @app.route("/admin-dash/agregar-producto")
+@login_required
 def agregar_producto():
-	form = MenuForm()
-	if form.validate_on_submit():
-		if form.imageproduct.data:
-			product_i = save_image(form.imageproduct.data)
-		
-	name_product = form.nameproduct.data
-	price_product = form.priceproduct.data
-	details_product = form.detailsproduct.data
-	quantity_product = form.quatityproduct.data
-	database.session.commit()
-	flash("El producto ha sido agregado correctamente!")
+	if current_user.username == "SuperAdmin":
+		form = MenuForm()
+		if form.validate_on_submit():
+			if form.imageproduct.data:
+				product_i = save_image(form.imageproduct.data)
+			
+		name_product = form.nameproduct.data
+		price_product = form.priceproduct.data
+		details_product = form.detailsproduct.data
+		quantity_product = form.quatityproduct.data
+		database.session.commit()
+		flash("El producto ha sido agregado correctamente!")
 
-	return render_template("product.html", 
-							name = name_product,
-							price = price_product,
-							details = details_product,
-							quantity = quantity_product,
-							form = form)
+		return render_template("product.html", 
+								name = name_product,
+								price = price_product,
+								details = details_product,
+								quantity = quantity_product,
+								form = form)
+	else:
+		return redirect(url_for('home'))
 
+@app.route("/admin-dash/lista-productos")
+@login_required
+def lista_producto():
+	if current_user.username == "SuperAdmin":
+		products = Menu.query.filter().all()
+		return render_template("listproducts.html", products = products)
+	else:
+		return redirect(url_for('home'))
 
 @app.route("/perfil-usuario", methods=['GET', 'POST'])
 @login_required

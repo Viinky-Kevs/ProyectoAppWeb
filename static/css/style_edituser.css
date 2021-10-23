@@ -1,0 +1,32 @@
+.title {
+    text-align: center;
+    font-size: 35px;
+}
+
+.images {
+    width: 50px;
+}
+
+.tableu td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.other {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttond {
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: brown;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.buttond:hover {
+    opacity: 0.6;
+}
