@@ -1,13 +1,11 @@
-from flask import Flask, redirect, url_for, render_template, abort, request, session, flash
+from flask import Flask, redirect, url_for, render_template, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from flask_admin import Admin, AdminIndexView
-from flask_admin.contrib.sqla import ModelView
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-from flask_socketio import SocketIO, emit, send, join_room
+from flask_socketio import SocketIO
 from flask_msearch import Search
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField
 from wtforms.validators import InputRequired, Email, Length, ValidationError
@@ -83,13 +81,13 @@ class User(database.Model, UserMixin):
 
 class Comment(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    commented_id = database.Column(database.Integer, database.ForeignKey('product.id'))
+    commented_id = database.Column(database.Integer, database.ForeignKey('products.id'))
     commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
     comment_body = database.Column(database.String(200))
 
-class Products(database.Model):
+class Products(database.Model, UserMixin):
 	id = database.Column(database.Integer, primary_key=True)
-	plate = database.Column(database.String(30), nullable = False)
+	product = database.Column(database.String(30), nullable = False)
 	price = database.Column(database.Integer)
 	quantity = database.Column(database.Integer)
 	score = database.Column(database.Integer)
@@ -98,13 +96,16 @@ class Products(database.Model):
 
 class Wish(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
-	product_id = database.Column(database.Integer, database.ForeignKey('product.id'))
+	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
 	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
 class RegisterForm(FlaskForm):
-	email = StringField("Email",validators=[InputRequired(), Email(message="Email invalido"), Length(max=50)], render_kw={"placeholder": "Email"})
-	username = StringField(validators=[InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder":"Usuario"})
-	password = PasswordField(validators=[InputRequired(), Length(min = 4, max = 20)], render_kw = {"placeholder":"Contraseña"})
+	email = StringField("Email",validators=[InputRequired(), Email(message="Email invalido"), 
+	Length(max=50)], render_kw={"placeholder": "Email"})
+	username = StringField(validators=[InputRequired(), Length(min = 4, max = 20)], 
+	render_kw = {"placeholder":"Usuario"})
+	password = PasswordField(validators=[InputRequired(), Length(min = 4, max = 20)], 
+	render_kw = {"placeholder":"Contraseña"})
 	submit = SubmitField("Registrar")
 
 	def validate_username(self, username):
@@ -186,16 +187,14 @@ class CommentForm(FlaskForm):
 # Formato menu
 
 class ProductForm(FlaskForm):
-	nameproduct = StringField(validators=[InputRequired(), Length(min=1, max = 20)], 
+	nameproduct = StringField(validators=[InputRequired(), Length(min=4, max = 20)], 
 	render_kw={"placeholder":"Nombre producto"})
-	priceproduct = IntegerField(validators=[InputRequired(), Length(min=1, max = 10)], 
-	render_kw={"placeholder":"Precio producto"})
-	quatityproduct = IntegerField(validators=[InputRequired(), Length(min=1, max = 10)], 
-	render_kw={"placeholder":"Cantidad productos"})
+	priceproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Precio producto"})
+	quatityproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Cantidad productos"})
 	detailsproduct = TextAreaField([Length(min=1, max=1000)], 
 	render_kw={"placeholder": "Agregar detalles de plato"})
 	imageproduct = FileField(validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
-	submit = SubmitField("Publicar producto")
+	submitbutton = SubmitField("Publicar producto")
 
 def make_comment():
 	form = CommentForm()
@@ -303,7 +302,7 @@ def agregar_producto():
 	if current_user.username == "SuperAdmin":
 		product_form = ProductForm()
 		if product_form.validate_on_submit():
-			new_product = Products(plate = product_form.nameproduct.data,
+			new_product = Products(product = product_form.nameproduct.data,
 			price = product_form.priceproduct.data, quantity = product_form.quatityproduct.data,
 			details = product_form.detailsproduct.data, 
 			image_prod = product_form.imageproduct.data)
@@ -359,8 +358,7 @@ def registrar():
 	registerform = RegisterForm()
 	if registerform.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(registerform.password.data)
-		new_user = User(username=registerform.username.data, password=hashed_password,
-		email = registerform.email.data)
+		new_user = User(username=registerform.username.data, password=hashed_password)
 		database.session.add(new_user)
 		database.session.commit()
 		flash("Tu cuenta ha sido creada exitosamente!")
