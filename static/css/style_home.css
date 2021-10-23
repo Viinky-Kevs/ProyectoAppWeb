@@ -6,6 +6,10 @@
 	align-items: center;
 }
 
+.logo {
+	width: 700px;
+}
+
 .title {
 	text-align: center;
 	font-size: 55px;
