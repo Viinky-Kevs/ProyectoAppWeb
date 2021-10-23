@@ -115,15 +115,7 @@
   padding: 0 20px 0 50px;
   width: 100%;
 }
-.sidebar .bx-search{
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 22px;
-  background: #FAF0E6;
-  color: #800000;
-}
+
 .sidebar.open .bx-search:hover{
   background: #FAF0E6;
   color: #800000;

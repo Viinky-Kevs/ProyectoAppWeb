@@ -27,13 +27,6 @@
     </div>
 
     <ul class="nav-list">
-      	<!-- Sección buscar -->
-      <li>
-        <i class='bx bx-search' ></i>
-        <input type="text" placeholder="Buscar..." id="searching">
-        <span class="tooltip">Buscar</span>
-      </li>
-
       <!-- Sección inicio -->
       <li>
         <a href="{{ url_for('home') }}">
@@ -41,6 +34,15 @@
           <span class="links_name">Inicio</span>
         </a>
          <span class="tooltip">Inicio</span>
+      </li>
+
+      <!-- Sección buscar -->
+      <li>
+        <a href="{{ url_for('busqueda') }}">
+          <i class='bx bx-search'></i>
+          <span class="links_name">Buscar</span>
+        </a>
+        <span class="tooltip">Buscar</span>
       </li>
 
       <!-- Sección menú -->
@@ -137,6 +139,5 @@
   	{% endblock %}
   </section>
   <script type="text/javascript" src="{{ url_for('static', filename='javascript/script_base.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='javascript/script_search.js') }}"></script>
 </body>
 </html>
