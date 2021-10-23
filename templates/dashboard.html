@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Detalle-Plato {% endblock %}
+{% block title %} Dashboard {% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style_dashboard.css') }}">
@@ -8,120 +8,115 @@
 
 {% block content %}
 <div class="admin">
-            <div id="title_p">
-                <h1>
-                    Dashboard Administrativo
-                </h1>
-            </div>
-            
-            <div id="users">
-                <h2>
-                    Usuarios
-                </h2>
-            </div>
+    <h1 class="title">
+        Dashboard Administrativo
+    </h1>
+    
+    <div class="grid">
+        <div class="users">
             <br>
-            <div id="column_1">
-                
-                <h3 >
-                    ###### Usuarios activos
-                </h3>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bx-user-plus' ></i> &nbsp; Registrar Usuario
-                    </button>
-                </a>
-                <br>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bx-user-check' ></i> &nbsp; Editar Usuario
-                    </button>
-                </a>
-                <br>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bx-user-x' ></i> &nbsp; Eliminar Usuario
-                    </button>
-                </a>
-            </div>
-            <div id="plates">
-                <h2>
-                    Productos
-                </h2>
-            </div>
             <br>
-            <div id="column_2">
-                
-                <h3 >
-                    ###### Productos publicados
-                </h3>
-                <br>
-                <a href="{{ url_for('agregar_producto') }}">
-                    <button type="button">
-                        <i class='bx bx-plus-circle'></i> &nbsp; Adicionar Producto
-                    </button>
-                </a>
-                <br>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bx-list-check'></i> &nbsp; Editar Producto
-                    </button>
-                </a>
-                <br>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bx-minus-circle' ></i> &nbsp; Eliminar Producto
-                    </button>
-                </a>
-            </div>
-            <div id="comments">
-                <h2>
-                    Comentarios
-                </h2>
-            </div>
+            <h2>
+                Usuarios
+            </h2>
+            <h3>
+                ###### Usuarios activos
+            </h3>
             <br>
-            <div id="column_3">
-                <h3 >
-                    ###### comentarios publicados
-                </h3>
-                <br>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bxs-book-open' ></i> &nbsp; Ver platos con comentarios
-                    </button>
-                </a>
-                <br>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bx-edit-alt' ></i> &nbsp; Editar comentarios
-                    </button>
-                </a>
-                <br>
-                <br>
-                <a href="#">
-                    <button type="button">
-                        <i class='bx bx-checkbox-minus'></i> &nbsp; Eliminar comentario
-                    </button>
-                </a>
-            </div>
-            <div id="numbers">
-                <h2>
-                    Número de visitas
-                </h2>
-            </div>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bx-user-plus'></i> &nbsp; Registrar Usuario
+                </button>
+            </a>
             <br>
-            <div id="column_4">
-                <h3 >
-                    123456789
-                </h3>
-                <br>
-                
-            </div>
+            <br>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bx-user-check'></i> &nbsp; Editar Usuario
+                </button>
+            </a>
+            <br>
+            <br>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bx-user-x'></i> &nbsp; Eliminar Usuario
+                </button>
+            </a>
         </div>
+        <br>
+        <div class="plates">
+            <br>
+            <br>
+            <h2>
+                Productos
+            </h2>
+            <h3>
+                ###### Productos publicados
+            </h3>
+            <br>
+            <a href="{{ url_for('agregar_producto') }}">
+                <button type="button">
+                    <i class='bx bx-plus-circle'></i> &nbsp; Adicionar Producto
+                </button>
+            </a>
+            <br>
+            <br>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bx-list-check'></i> &nbsp; Editar Producto
+                </button>
+            </a>
+            <br>
+            <br>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bx-minus-circle'></i> &nbsp; Eliminar Producto
+                </button>
+            </a>
+        </div>
+        <div class="comments">
+            <br>
+            <br>
+            <h2>
+                Comentarios
+            </h2>
+            <h3>
+                ###### comentarios publicados
+            </h3>
+            <br>
+            <br>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bxs-book-open'></i> &nbsp; Ver platos con comentarios
+                </button>
+            </a>
+            <br>
+            <br>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bx-edit-alt'></i> &nbsp; Editar comentarios
+                </button>
+            </a>
+            <br>
+            <br>
+            <a href="#">
+                <button type="button">
+                    <i class='bx bx-checkbox-minus'></i> &nbsp; Eliminar comentario
+                </button>
+            </a>
+        </div>
+        <div class="numbers">
+            <br>
+            <br>
+            <h2>
+                Número de visitas
+            </h2>
+            <br>
+            <h3>
+                123456789
+            </h3>
+            <br>
+        </div>
+    </div>
+</div>
 {% endblock %}
