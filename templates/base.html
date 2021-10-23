@@ -12,7 +12,6 @@
 
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="icon" href="{{ url_for('static', filename='images/icon.ico') }}" sizes="16x16" type="image/png">
-
   {% block javascript %}
   {% endblock %}
   
@@ -31,7 +30,7 @@
       	<!-- Sección buscar -->
       <li>
         <i class='bx bx-search' ></i>
-        <input type="text" placeholder="Buscar...">
+        <input type="text" placeholder="Buscar..." id="searching">
         <span class="tooltip">Buscar</span>
       </li>
 
@@ -138,5 +137,6 @@
   	{% endblock %}
   </section>
   <script type="text/javascript" src="{{ url_for('static', filename='javascript/script_base.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='javascript/script_search.js') }}"></script>
 </body>
 </html>
