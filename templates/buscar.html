@@ -40,6 +40,7 @@
 					<th>Precio</th>
 					<th>Cantidad</th>
 					<th>Detalles</th>
+					<th>Foto producto</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -51,6 +52,9 @@
 					<td>{{ product.price }}</td>
 					<td>{{ product.quantity }}</td>
 					<td>{{ product.details }}</td>
+					<td>
+						<img src="{{ url_for('static', filename='images_plates/' + product.image_prod) }}" alt="">
+					</td>
 				</tr>
 				{% endfor %}
 			</tbody>
