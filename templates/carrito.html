@@ -11,46 +11,11 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="title">
-            Carrito de compras
-        </h1>
-        <div class="table">
-            <table class="table_1" style="width: 90%">
-                <tr>
-                    <th>
-                        Producto
-                    </th>
-                    <th>
-                        Precio unitario
-                    </th>
-                    <th>
-                        Cantidad
-                    </th>
-                    <th>
-                        Precio total
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <img src="{{ url_for('static', filename='images/Pan_2.jpg')}}" class="image"> Pan de trigo
-                    </th>
-                    <th>
-                        $10.000
-                    </th>
-                    <th>
-                        <form>
-                            <input type="button" onclick="decreaseValue()" value="-">
-                            <input type="text" id="number" value="0" size="1px"/>
-                            <input type="button" onclick="incrementValue()" value="+" />
-                         </form>
-                    </th>
-                    <th>
-                        $10.000
-                    </th>
-                </tr>
-            </table>
-        </div>
-        <div class="shop-button">
-            <button class="button">Comprar</button>
-        </div>    
+<div class="container">
+    <br>
+    <h1 class=title>
+        Carrito de compras
+    </h1>
+
+</div>
 {% endblock %}
