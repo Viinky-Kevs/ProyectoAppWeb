@@ -31,12 +31,13 @@
         <tbody>
             {% for product in products %}
             <tr>
-                <td><input type="checkbox" name="product"></td>
+                <td><input type="checkbox" name="user"></td>
                 <td>{{ product.id }}</td>
                 <td>{{ product.productname }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.details }}</td>
+                <td><img src="{{ url_for('static', filename='images_plates/'+product.image_prod) }}" alt=""></td>
             </tr>
             {% endfor %}
         </tbody>

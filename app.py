@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
 from flask_socketio import SocketIO
@@ -189,9 +189,8 @@ class ProductForm(FlaskForm):
 	priceproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Precio producto"})
 	quatityproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Cantidad productos"})
 	scoreproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Puntuación producto"})
-	detailsproduct = TextAreaField([Length(min=1, max=1000)], 
-	render_kw={"placeholder": "Agregar detalles de plato"})
-	imageproduct = FileField(validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+	detailsproduct = TextAreaField([Length(min=1, max=1000)], render_kw={"placeholder": "Agregar detalles de plato"})
+	imageproduct = FileField(validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
 	submitbutton = SubmitField("Publicar producto")
 
 def make_comment():
@@ -202,32 +201,31 @@ def make_comment():
 
 # Foto de perfil del usuario
 def save_picture(form_profile_pic):
-    rand_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_profile_pic.filename)
-    picture_name = rand_hex + f_ext
-    picture_path = os.path.join(
-        app.root_path, 'static/profile_pics', picture_name)
-    form_profile_pic.save(picture_path)
-
-    output_size = (125, 125)
-    i = Image.open(form_profile_pic)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-    return picture_name
+	rand_hex = secrets.token_hex(8)
+	_, f_ext = os.path.splitext(form_profile_pic.filename)
+	picture_name = rand_hex + f_ext
+	picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_name)
+	form_profile_pic.save(picture_path)
+	
+	output_size = (125, 125)
+	i = Image.open(form_profile_pic)
+	i.thumbnail(output_size)
+	i.save(picture_path)
+	return picture_name
 
 # Foto de plato
-def save_image(form_image_product):
-    rand_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_image_product.filename)
-    picture_name = rand_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/images_plates', picture_name)
-    form_image_product.save(picture_path)
-
-    output_size = (800, 800)
-    i = Image.open(form_image_product)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-    return picture_name
+def save_image(image):
+	rand_hex = secrets.token_hex(8)
+	_, f_ext = os.path.splitext(image.filename)
+	picture_name = rand_hex + f_ext
+	picture_path = os.path.join(app.root_path, 'static/images_plates', picture_name)
+	image.save(picture_path)
+	
+	output_size = (800, 800)
+	i = Image.open(image)
+	i.thumbnail(output_size)
+	i.save(picture_path)
+	return picture_name
 
 #Definición de rutas
 @app.route("/")
@@ -300,14 +298,12 @@ def agregar_producto():
 	if current_user.username == "SuperAdmin":
 		product_form = ProductForm()
 		if product_form.validate_on_submit():
-			if product_form.imageproduct.data:
-				image_prod = save_image(product_form.imageproduct.data)
-				Products.image_pro = image_prod
-				database.session.commit()
+			image_produ = save_image(product_form.imageproduct.data)
 			new_product = Products(productname = product_form.nameproduct.data,
 			price = product_form.priceproduct.data, quantity = product_form.quatityproduct.data,
 			details = product_form.detailsproduct.data, 
-			score = product_form.scoreproduct.data)
+			score = product_form.scoreproduct.data,
+			image_prod = image_produ)
 			database.session.add(new_product)
 			database.session.commit()
 			return redirect(url_for('dashboard'))
