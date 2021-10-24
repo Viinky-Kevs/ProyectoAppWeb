@@ -36,10 +36,16 @@
             <img src="{{ url_for('static', filename='images_plates/'+product.image_prod) }}" alt="" class="image">
         </div>
         <div class="wish">
-            {{ form.submit }}
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                {{ form.submit }}
+            </form>
         </div>
         <div class="buy">
-            {{ buyform.submit }}
+            <form action="" method="post">
+                {{ buyform.hidden_tag() }}
+                {{ buyform.submit }}
+            </form>
         </div>
         
         {% endfor %}

@@ -268,6 +268,10 @@ def menu():
 			user_id = current_user,
 			product_price = request.form['tag-price'])
 			return redirect(url_for('lista'))
+	if form.validate_on_submit():
+		if request.method == 'POST':
+			return redirect(url_for('carrito'))
+
 	return render_template("carta.html", products = products, form = form, buyform = buyform)
 
 @app.route("/plato")
