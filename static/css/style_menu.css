@@ -4,11 +4,16 @@
 }
 
 .image {
-    width: 400px;
+    width: 450px;
+    border-radius: 10px;
 }
 
 .menu {
     display: grid;
+}
+
+.name {
+    text-align: center;
 }
 
 .id-f,
@@ -16,4 +21,25 @@
 .img-f,
 .name-f {
     display: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  padding: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
 }

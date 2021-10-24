@@ -11,60 +11,77 @@
     <h1 class="title">
         Menú disponible
     </h1>
+    <br>
     <div class="menu">
         {% for product in products %}
-        <div class="id-f">
-            <form action="" method="post" name="tag-id">
-                <input value="{{ product.id }}" readonly name="tag-id" id="tag-id">
-            </form>
+        <div class="column">
+            <div class="image-div">
+                <img src="{{ url_for('static', filename='images_plates/'+product.image_prod) }}" alt="" class="image">
+            </div>
         </div>
-        <div class="id">
-            {{ product.id }}
-        </div>
-        <div class="name-f">
-            <form action="" method="post">
-                <input value="{{ product.productname }}" readonly name="tag-name" id="tag-name">
-            </form>
-        </div>
-        <div class="name">
-            {{ product.productname }}
-        </div>
-        <div class="price-f">
-            <form action="" method="post" >
-                <input value="{{ product.price }}" readonly name="tag-price" id="tag-price">
-            </form>
-        </div>
-        <div class="price">
-            {{ product.price }}
-        </div>
-        <div class="quantity">
-            {{ product.quantity }}
-        </div>
-        <div class="details">
-            {{ product.details }}
-        </div>
-        <div class="img-f">
-            <form action="" method="post">
-                <input value="{{ product.image_prod }}" readonly name="tag-img" id="tag-img">
-            </form>
-        </div>
-        <div class="image-div">
-            <img src="{{ url_for('static', filename='images_plates/'+product.image_prod) }}" alt="" class="image">
-        </div>
-        <div class="wish">
-            <form action="" method="post">
-                {{ form.hidden_tag() }}
-                {{ form.submit }}
-            </form>
-        </div>
-        <div class="buy">
-            <form action="" method="post">
-                {{ buyform.hidden_tag() }}
-                {{ buyform.submit }}
-            </form>
+        <div class="column">
+            <div class="id-f">
+                <form action="" method="post">
+                    <input value="{{ product.id }}" readonly name="tagid" id="tagid">
+                </form>
+            </div>
+            <div class="name-f">
+                <form action="" method="post">
+                    <input value="{{ product.productname }}" readonly name="tagname" id="tagname">
+                </form>
+            </div>
+            <div class="name">
+                <h1 class="name">
+                    {{ product.productname }}
+                </h1>
+            </div>
+            <div class="price-f">
+                <form action="" method="POST">
+                    <input readonly name="tagprice" id="tagprice">
+                </form>
+            </div>
+            <div class="price">
+                <h3>
+                    Precio : &emsp; ${{ product.price }}
+                </h3>
+            </div>
+            <div class="quantity">
+                <h3>
+                    Cantidad disponible: &emsp;{{ product.quantity }}(unidades)
+                </h3>
+            </div>
+            <div class="details">
+                <h3>
+                    Detalles del producto:
+                </h3>
+                <p>
+                    {{ product.details }}
+                </p>
+            </div>
+            <div class="img-f">
+                <form action="" method="post">
+                    <input value="{{ product.image_prod }}" readonly name="tagimg" id="tagimg">
+                </form>
+            </div>
+            <div class="wish">
+                <br>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.submit }}
+                </form>
+            </div>
+            
+            <div class="buy">
+                <br>
+                <form action="" method="post">
+                    {{ buyform.hidden_tag() }}
+                    {{ buyform.submit }}
+                </form>
+            </div>
         </div>
         
         {% endfor %}
     </div>
-</div>    
+</div> 
+
 {% endblock %}

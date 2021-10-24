@@ -268,11 +268,16 @@ def menu():
 	form = WishForm()
 	if form.validate_on_submit():
 		if request.method == 'POST':
-			new_item = Wish(product_id = request.form['tag-id'],
+			#id_t = "%{}%".format(request.form["tagid"])
+			tag_p = request.form["tagprice"]
+			price_t = "%{}%".format(tag_p)
+			name_t = "%{}%".format(request.form['tagname'])
+			img_t = "%{}%".format(request.form['tagimg'])
+			new_item = Wish(#product_id = id_t,
 			user_id = current_user,
-			product_price = request.form['tag-price'],
-			product_name = request.form['tag-name'],
-			product_img = request.form['tag-img'])
+			product_price = price_t,
+			product_name = name_t,
+			product_img = img_t)
 			database.session.add(new_item)
 			database.session.commit()
 			return redirect(url_for('lista'))
