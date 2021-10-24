@@ -45,9 +45,9 @@
 			<tr>
 				<td><input type="checkbox" name="user"></td>
 				<td>{{ product.id }}</td>
-				<td>{{ product.product }}</td>
-				<td>{{ productr.price }}</td>
-				<td>{{ product.quatity }}</td>
+				<td>{{ product.productname }}</td>
+				<td>{{ product.price }}</td>
+				<td>{{ product.quantity }}</td>
 				<td>{{ product.details }}</td>
 			</tr>
 			{% endfor %}
@@ -72,11 +72,7 @@
 		</button>
 	</div>
 </div>
-
-
-<div>
-	{{ key }}
-</div>
+<script type="text/javascript" src="{{url_for('static', filename='javascript/script_edituser.js')}}"></script>
 
 <script type="text/javascrpit" src="{{ url_for('static', filename='javascript/script_search.js') }}"></script>
 {% endblock %}

@@ -235,7 +235,7 @@ def busqueda():
 	if request.method == 'POST' and 'tag' in request.form:
 		tag = request.form["tag"]
 		search = "%{}%".format(tag)
-		products = Products.query.filter(Products.product.like(search))#.paginate(per_page = pages, error_out = True)
+		products = Products.query.filter(Products.productname.like(search))#.paginate(per_page = pages, error_out = True)
 		return render_template("buscar.html", products = products, tag = tag)
 	return render_template("buscar.html")
 
