@@ -20,25 +20,10 @@
             </div>
         </div>
         <div class="column">
-            <div class="id-f">
-                <form action="" method="post">
-                    <input value="{{ product.id }}" readonly name="tagid" id="tagid">
-                </form>
-            </div>
-            <div class="name-f">
-                <form action="" method="post">
-                    <input value="{{ product.productname }}" readonly name="tagname" id="tagname">
-                </form>
-            </div>
             <div class="name">
                 <h1 class="name">
                     {{ product.productname }}
                 </h1>
-            </div>
-            <div class="price-f">
-                <form action="" method="POST">
-                    <input readonly name="tagprice" id="tagprice">
-                </form>
             </div>
             <div class="price">
                 <h3>
@@ -47,7 +32,7 @@
             </div>
             <div class="quantity">
                 <h3>
-                    Cantidad disponible: &emsp;{{ product.quantity }}(unidades)
+                    Cantidad disponible: &emsp;{{ product.quantity }}&emsp;(unidades)
                 </h3>
             </div>
             <div class="details">
@@ -58,27 +43,26 @@
                     {{ product.details }}
                 </p>
             </div>
-            <div class="img-f">
-                <form action="" method="post">
-                    <input value="{{ product.image_prod }}" readonly name="tagimg" id="tagimg">
-                </form>
-            </div>
         </div>
         <div class="column">
             <div class="wish">
-                <form action="" method="post">
-                    <br>
-                    {{ form.hidden_tag() }}
-                    {{ form.submit(class="buttond") }}
+                <form action="" method="POST">
+                    <input value="{{ product.id }}" readonly name="tagid" id="tagid">
+                    <input value="{{ product.price }}" name="tagprice" id="tagprice">
+                    <input value="{{ product.productname }}" readonly name="tagname" id="tagname">
+                    <input value="{{ product.image_prod }}" readonly name="tagimg" id="tagimg">
+                    <input type="submit" value="Lo quiero!" class="form-control btn btn-primary " name="" id="buttond">
                 </form>
                 <br>
             </div>
-            
+            <br>
             <div class="buy">
-                <form action="" method="post">
-                    <br>
-                    {{ buyform.hidden_tag() }}
-                    {{ buyform.submit(class="buttond1") }}
+                <form action="" method="POST">
+                    <input value="{{ product.id }}" readonly name="tagidc" id="tagidc">
+                    <input value="{{ product.price }}" name="tagpricec" id="tagpricec">
+                    <input value="{{ product.productname }}" readonly name="tagnamec" id="tagnamec">
+                    <input value="{{ product.image_prod }}" readonly name="tagimgc" id="tagimgc">
+                    <input type="submit" value="Lo compro!" class="form-control btn btn-primary " name="" id="buttond">
                 </form>
             </div>
         </div>

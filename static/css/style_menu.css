@@ -25,16 +25,15 @@
   justify-content: center;
 }
 
-.buttond,
-.buttond1 {
+#buttond {
   cursor: pointer;
   border-radius: 10px;
   height: 50px;
+  width: 200px;
   background-color: rgb(155, 56, 32);
   color: white;
 }
-.buttond:hover,
-.buttond1:hover {
+#buttond:hover {
   opacity: 0.6;
 }
 
@@ -50,4 +49,14 @@
   flex: 33.33%;
 }
 
+#tagprice,
+#tagid,
+#tagname,
+#tagimg,
+#tagidc,
+#tagpricec,
+#tagnamec,
+#tagimgc {
+  display: none;
+}
 
