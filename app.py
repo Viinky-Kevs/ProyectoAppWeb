@@ -56,18 +56,6 @@ def load_user(user_id):
 def make_session_permanent():
     session.permanent = True
 
-
-class Post(database.Model):
-	__tablename__ = 'basic_posts'
-	__searchable__ = ['title', 'content']
-
-	id = database.Column(database.Integer, primary_key = True)
-	title = database.Column(database.String(49))
-	content = database.Column(database.Text)
-
-	def __rep__(self):
-		return '<Post:{}>'.format(self.title)
-
 class User(database.Model, UserMixin):
 	id = database.Column(database.Integer, primary_key=True)
 	email = database.Column(database.String(30), unique=True)
@@ -85,13 +73,13 @@ class Comment(database.Model):
     commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
     comment_body = database.Column(database.String(200))
 
-class Products(database.Model, UserMixin):
+class Products(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
-	product = database.Column(database.String(30), nullable = False)
-	price = database.Column(database.Integer)
-	quantity = database.Column(database.Integer)
-	score = database.Column(database.Integer)
-	details = database.Column(database.Text)
+	productname = database.Column(database.String(30), nullable=False, unique=True)
+	price = database.Column(database.Integer, nullable=False)
+	quantity = database.Column(database.Integer, nullable=False)
+	score = database.Column(database.Integer, nullable=False)
+	details = database.Column(database.String(1000))
 	image_prod = database.Column(database.String(40), nullable=False, default='pan.jpg')
 
 class Wish(database.Model):
@@ -191,6 +179,7 @@ class ProductForm(FlaskForm):
 	render_kw={"placeholder":"Nombre producto"})
 	priceproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Precio producto"})
 	quatityproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Cantidad productos"})
+	scoreproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Puntuación producto"})
 	detailsproduct = TextAreaField([Length(min=1, max=1000)], 
 	render_kw={"placeholder": "Agregar detalles de plato"})
 	imageproduct = FileField(validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
@@ -246,8 +235,8 @@ def busqueda():
 	if request.method == 'POST' and 'tag' in request.form:
 		tag = request.form["tag"]
 		search = "%{}%".format(tag)
-		products = Products.query.filter(User.username.like(search))#.paginate(per_page = pages, error_out = True)
-		return render_template("buscar.html", product = products, tag = tag)
+		products = Products.query.filter(Products.product.like(search))#.paginate(per_page = pages, error_out = True)
+		return render_template("buscar.html", products = products, tag = tag)
 	return render_template("buscar.html")
 
 @app.route("/ajustes")
@@ -289,7 +278,7 @@ def lista_usuario():
 		if request.method == 'POST' and 'tag' in request.form:
 			tag = request.form["tag"]
 			search = "%{}%".format(tag)
-			users = User.query.filter(User.username.like(search))#.paginate(per_page = pages, error_out = True)
+			users = User.query.filter(User.username.like(search))
 			return render_template("edituser.html", users = users, tag = tag)
 
 		return render_template("edituser.html", users = users)
@@ -302,13 +291,14 @@ def agregar_producto():
 	if current_user.username == "SuperAdmin":
 		product_form = ProductForm()
 		if product_form.validate_on_submit():
-			new_product = Products(product = product_form.nameproduct.data,
+			new_product = Products(productname = product_form.nameproduct.data,
 			price = product_form.priceproduct.data, quantity = product_form.quatityproduct.data,
 			details = product_form.detailsproduct.data, 
-			image_prod = product_form.imageproduct.data)
+			image_prod = product_form.imageproduct.data,
+			score = product_form.scoreproduct.data)
 			database.session.add(new_product)
 			database.session.commit()
-			return redirect('dashboard')
+			return redirect(url_for('dashboard'))
 		return render_template("product.html", form = product_form)
 
 	else:

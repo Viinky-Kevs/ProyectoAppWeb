@@ -14,31 +14,37 @@
     </h1>
     <br>
     <br>
-    {{ form.hidden_tag() }}
-    <div class="name-product">
-        {{ form.nameproduct }}
-    </div>
-    <br>
-    <div class="price-product">
-        {{ form.priceproduct }}
-    </div>
-    <br>
-    <div class="quantity-product">
-        {{ form.quatityproduct }}
-    </div>
-    <br>
-    <div class="details_product">
-        {{ form.detailsproduct }}
-    </div>
-    <br>
-    <div class="image-product">
-        {{ form.imageproduct }}
-    </div>
-    <br>
-    <br>
-    <div class="submit">
-        {{ form.submitbutton(class="button_s") }}
-    </div>
+    <form action="" method="POST" class="format">
+        {{ form.hidden_tag() }}
+        <div class="name-product">
+            {{ form.nameproduct }}
+        </div>
+        <br>
+        <div class="price-product">
+            {{ form.priceproduct }}
+        </div>
+        <br>
+        <div class="quantity-product">
+            {{ form.quatityproduct }}
+        </div>
+        <br>
+        <div class="score-product">
+            {{ form.scoreproduct }}
+        </div>
+        <br>
+        <div class="details-product">
+            {{ form.detailsproduct }}
+        </div>
+        <br>
+        <div class="image-product">
+            {{ form.imageproduct }}
+        </div>
+        <br>
+        <br>
+        <div class="submit">
+            {{ form.submitbutton(class="button_s") }}
+        </div>
+    </form>
     <br>
     <br>
     <br>

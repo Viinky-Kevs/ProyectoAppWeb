@@ -7,8 +7,9 @@
 .price-product,
 .price-product,
 .quantity-product,
-.details_product,
+.details-product,
 .image-product,
+.score-product,
 .submit,
 .other {
     display: flex;
