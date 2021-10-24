@@ -85,8 +85,8 @@ class Products(database.Model):
 class Wish(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
 	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
-	product_id = database.Column(database.Integer, database.ForeignKey('products.price'))
-	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
+	product_price = database.Column(database.Integer, database.ForeignKey('products.price'))
+	user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
 class Shop(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
@@ -193,6 +193,12 @@ class ProductForm(FlaskForm):
 	imageproduct = FileField(validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'])])
 	submitbutton = SubmitField("Publicar producto")
 
+class WishForm(FlaskForm):
+	submit = SubmitField("Agregar a lista de deseos")
+
+class BuyForm(FlaskForm):
+	submit = SubmitField("Agregar a carrito de compras")
+
 def make_comment():
 	form = CommentForm()
 	if form.validate_on_submit():
@@ -232,11 +238,6 @@ def save_image(image):
 def home():
 	return render_template("home.html")
 
-@app.route("/lista-de-deseos")
-@login_required
-def lista():
-	return render_template("listadeseos.html")
-
 @app.route("/busqueda", methods=['GET', 'POST'])
 def busqueda():
 	if request.method == 'POST' and 'tag' in request.form:
@@ -246,19 +247,28 @@ def busqueda():
 		return render_template("buscar.html", products = products, tag = tag)
 	return render_template("buscar.html")
 
-@app.route("/ajustes")
-def ajustes():
-	return render_template("ajustes.html")
+@app.route("/lista-de-deseos")
+@login_required
+def lista():
+	return render_template("listadeseos.html")
 
 @app.route("/carrito-de-compras")
 @login_required
 def carrito():
 	return render_template("carrito.html")
 
-@app.route("/menu")
+@app.route("/menu", methods=['GET', 'POST'])
 def menu():
 	products = Products.query.filter().all()
-	return render_template("carta.html", products = products)
+	buyform = BuyForm()
+	form = WishForm()
+	if form.validate_on_submit():
+		if request.method == 'POST':
+			new_item = Wish(product_id = request.form['tag-id'],
+			user_id = current_user,
+			product_price = request.form['tag-price'])
+			return redirect(url_for('lista'))
+	return render_template("carta.html", products = products, form = form, buyform = buyform)
 
 @app.route("/plato")
 def plato():
@@ -289,7 +299,7 @@ def lista_usuario():
 			users = User.query.filter(User.username.like(search))
 			return render_template("edituser.html", users = users, tag = tag)
 
-		return render_template("edituser.html", users = users)
+		return render_template("listuser.html", users = users)
 	else:
 		return redirect(url_for('home'))
 
@@ -462,6 +472,10 @@ def resetear_contra(token):
         flash('Tu contraseña ha sido actualizada!', 'success')
         return redirect(url_for('home'))
     return render_template('resetearcontra.html', title = 'Reset Password', form = reset_form)
+
+@app.route("/ajustes")
+def ajustes():
+	return render_template("ajustes.html")
 
 if __name__ == "__main__":
 	app.run(debug = True)
