@@ -190,7 +190,7 @@ class ProductForm(FlaskForm):
 	quatityproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Cantidad productos"})
 	scoreproduct = IntegerField(validators=[InputRequired()], render_kw={"placeholder":"Puntuación producto"})
 	detailsproduct = TextAreaField([Length(min=1, max=1000)], render_kw={"placeholder": "Agregar detalles de plato"})
-	imageproduct = FileField(validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
+	imageproduct = FileField(validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'])])
 	submitbutton = SubmitField("Publicar producto")
 
 def make_comment():
@@ -257,7 +257,8 @@ def carrito():
 
 @app.route("/menu")
 def menu():
-	return render_template("carta.html")
+	products = Products.query.filter().all()
+	return render_template("carta.html", products = products)
 
 @app.route("/plato")
 def plato():

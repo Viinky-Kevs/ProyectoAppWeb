@@ -11,5 +11,28 @@
     <h1 class="title">
         Menú disponible
     </h1>
+    <div class="menu">
+        {% for product in products %}
+        <div class="id">
+            {{ product.id }}
+        </div>
+        <div class="name">
+            {{ product.productname }}
+        </div>
+        <div class="price">
+            {{ product.price }}
+        </div>
+        <div class="quantity">
+            {{ product.quantity }}
+        </div>
+        <div class="details">
+            {{ product.details }}
+        </div>
+        <div class="image-div">
+            <img src="{{ url_for('static', filename='images_plates/'+product.image_prod) }}" alt="" class="image">
+        </div>
+        
+        {% endfor %}
+    </div>
 </div>    
 {% endblock %}
