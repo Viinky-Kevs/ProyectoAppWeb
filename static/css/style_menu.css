@@ -25,11 +25,21 @@
   justify-content: center;
 }
 
-.buttond {
+.buttond,
+.buttond1 {
   cursor: pointer;
+  border-radius: 10px;
+  height: 50px;
+  background-color: rgb(155, 56, 32);
+  color: white;
+}
+.buttond:hover,
+.buttond1:hover {
+  opacity: 0.6;
 }
 
 .menu {
+  padding: 30px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -39,4 +49,5 @@
 .column {
   flex: 33.33%;
 }
+
 
