@@ -224,7 +224,7 @@ def save_image(form_image_product):
     form_image_product.save(picture_path)
 
     output_size = (800, 800)
-    i = Image.open(form_profile_pic)
+    i = Image.open(form_image_product)
     i.thumbnail(output_size)
     i.save(picture_path)
     return picture_name
