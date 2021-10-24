@@ -63,24 +63,26 @@
                     <input value="{{ product.image_prod }}" readonly name="tagimg" id="tagimg">
                 </form>
             </div>
+        </div>
+        <div class="column">
             <div class="wish">
-                <br>
                 <form action="" method="post">
+                    <br>
                     {{ form.hidden_tag() }}
-                    {{ form.submit }}
+                    {{ form.submit(class="buttond") }}
                 </form>
+                <br>
             </div>
             
             <div class="buy">
-                <br>
                 <form action="" method="post">
+                    <br>
                     {{ buyform.hidden_tag() }}
-                    {{ buyform.submit }}
+                    {{ buyform.submit(class="buttond") }}
                 </form>
             </div>
         </div>
-        
-        {% endfor %}
+        {% endfor %}  
     </div>
 </div> 
 

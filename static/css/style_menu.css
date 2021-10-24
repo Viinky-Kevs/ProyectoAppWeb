@@ -8,10 +8,6 @@
     border-radius: 10px;
 }
 
-.menu {
-    display: grid;
-}
-
 .name {
     text-align: center;
 }
@@ -23,6 +19,16 @@
     display: none;
 }
 
+.wish,
+.buy {
+  display: flex;
+  justify-content: center;
+}
+
+.buttond {
+  cursor: pointer;
+}
+
 .menu {
   display: flex;
   flex-direction: row;
@@ -31,15 +37,6 @@
 }
 
 .column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-  padding: 10px;
+  flex: 33.33%;
 }
 
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-  }
-}
