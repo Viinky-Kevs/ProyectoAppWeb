@@ -85,7 +85,16 @@ class Products(database.Model):
 class Wish(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
 	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
+	product_id = database.Column(database.Integer, database.ForeignKey('products.price'))
 	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
+
+class Shop(database.Model):
+	id = database.Column(database.Integer, primary_key=True)
+	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
+	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
+	product_name = database.Column(database.Integer, database.ForeignKey('products.productname'))
+	product_price = database.Column(database.Integer, database.ForeignKey('products.price'))
+	product_img = database.Column(database.Integer, database.ForeignKey('products.image_prod'))
 
 class RegisterForm(FlaskForm):
 	email = StringField("Email",validators=[InputRequired(), Email(message="Email invalido"), 
@@ -207,12 +216,12 @@ def save_picture(form_profile_pic):
     return picture_name
 
 # Foto de plato
-def save_image(form_profile_pic):
+def save_image(form_image_product):
     rand_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_profile_pic.filename)
+    _, f_ext = os.path.splitext(form_image_product.filename)
     picture_name = rand_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/images_plates', picture_name)
-    form_profile_pic.save(picture_path)
+    form_image_product.save(picture_path)
 
     output_size = (800, 800)
     i = Image.open(form_profile_pic)
@@ -291,10 +300,13 @@ def agregar_producto():
 	if current_user.username == "SuperAdmin":
 		product_form = ProductForm()
 		if product_form.validate_on_submit():
+			if product_form.imageproduct.data:
+				image_prod = save_image(product_form.imageproduct.data)
+				Products.image_pro = image_prod
+				database.session.commit()
 			new_product = Products(productname = product_form.nameproduct.data,
 			price = product_form.priceproduct.data, quantity = product_form.quatityproduct.data,
 			details = product_form.detailsproduct.data, 
-			image_prod = product_form.imageproduct.data,
 			score = product_form.scoreproduct.data)
 			database.session.add(new_product)
 			database.session.commit()
