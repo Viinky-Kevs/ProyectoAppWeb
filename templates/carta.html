@@ -13,24 +13,40 @@
     </h1>
     <div class="menu">
         {% for product in products %}
-        <div class="id">
+        <div class="id-f">
             <form action="" method="post" name="tag-id">
-                {{ product.id }}
+                <input value="{{ product.id }}" readonly name="tag-id" id="tag-id">
+            </form>
+        </div>
+        <div class="id">
+            {{ product.id }}
+        </div>
+        <div class="name-f">
+            <form action="" method="post">
+                <input value="{{ product.productname }}" readonly name="tag-name" id="tag-name">
             </form>
         </div>
         <div class="name">
             {{ product.productname }}
         </div>
-        <div class="price">
-            <form action="" method="post" name="tag-price">
-                {{ product.price }}
+        <div class="price-f">
+            <form action="" method="post" >
+                <input value="{{ product.price }}" readonly name="tag-price" id="tag-price">
             </form>
+        </div>
+        <div class="price">
+            {{ product.price }}
         </div>
         <div class="quantity">
             {{ product.quantity }}
         </div>
         <div class="details">
             {{ product.details }}
+        </div>
+        <div class="img-f">
+            <form action="" method="post">
+                <input value="{{ product.image_prod }}" readonly name="tag-img" id="tag-img">
+            </form>
         </div>
         <div class="image-div">
             <img src="{{ url_for('static', filename='images_plates/'+product.image_prod) }}" alt="" class="image">

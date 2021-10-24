@@ -11,4 +11,9 @@
     display: grid;
 }
 
-
+.id-f,
+.price-f,
+.img-f,
+.name-f {
+    display: none;
+}

@@ -87,22 +87,26 @@ class Wish(database.Model):
 	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
 	product_price = database.Column(database.Integer, database.ForeignKey('products.price'))
 	user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
+	product_name = database.Column(database.Integer, database.ForeignKey('products.productname'))
+	product_img = database.Column(database.Integer, database.ForeignKey('products.image_prod'))
 
 class Shop(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
 	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
-	product_id = database.Column(database.Integer, database.ForeignKey('user.id'))
+	user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 	product_name = database.Column(database.Integer, database.ForeignKey('products.productname'))
 	product_price = database.Column(database.Integer, database.ForeignKey('products.price'))
 	product_img = database.Column(database.Integer, database.ForeignKey('products.image_prod'))
 
 class RegisterForm(FlaskForm):
-	email = StringField("Email",validators=[InputRequired(), Email(message="Email invalido"), 
-	Length(max=50)], render_kw={"placeholder": "Email"})
+	email = StringField(validators=[InputRequired(), Email(message="Email invalido"), 
+	Length(min=1, max=50)], render_kw={"placeholder": "Email"})
 	username = StringField(validators=[InputRequired(), Length(min = 4, max = 20)], 
 	render_kw = {"placeholder":"Usuario"})
 	password = PasswordField(validators=[InputRequired(), Length(min = 4, max = 20)], 
 	render_kw = {"placeholder":"Contraseña"})
+	password_c = PasswordField(validators=[InputRequired(), Length(min = 4, max = 20)],
+	render_kw = {"placeholder":"Confirmar contraseña"})
 	submit = SubmitField("Registrar")
 
 	def validate_username(self, username):
@@ -266,10 +270,21 @@ def menu():
 		if request.method == 'POST':
 			new_item = Wish(product_id = request.form['tag-id'],
 			user_id = current_user,
-			product_price = request.form['tag-price'])
+			product_price = request.form['tag-price'],
+			product_name = request.form['tag-name'],
+			product_img = request.form['tag-img'])
+			database.session.add(new_item)
+			database.session.commit()
 			return redirect(url_for('lista'))
 	if form.validate_on_submit():
 		if request.method == 'POST':
+			new_item = Shop(product_id = request.form['tag-id'],
+			user_id = current_user,
+			product_price = request.form['tag-price'],
+			product_name = request.form['tag-name'],
+			product_img = request.form['tag-img'])
+			database.session.add(new_item)
+			database.session.commit()
 			return redirect(url_for('carrito'))
 
 	return render_template("carta.html", products = products, form = form, buyform = buyform)
@@ -370,12 +385,17 @@ def perfil_usuario():
 def registrar():
 	registerform = RegisterForm()
 	if registerform.validate_on_submit():
-		hashed_password = bcrypt.generate_password_hash(registerform.password.data)
-		new_user = User(username=registerform.username.data, password=hashed_password)
-		database.session.add(new_user)
-		database.session.commit()
-		flash("Tu cuenta ha sido creada exitosamente!")
-		return redirect(url_for('login'))
+		if registerform.password.data == registerform.password_c.data:
+			hashed_password = bcrypt.generate_password_hash(registerform.password.data)
+			new_user = User(username=registerform.username.data, 
+			password=hashed_password,
+			email = registerform.email.data)
+			database.session.add(new_user)
+			database.session.commit()
+			flash("Tu cuenta ha sido creada exitosamente!")
+			return redirect(url_for('login'))
+		else:
+			return redirect(url_for('registrar'))
 
 	return render_template("signup.html", registerform = registerform)
 
