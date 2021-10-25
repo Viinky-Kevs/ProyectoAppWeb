@@ -90,9 +90,9 @@
             <br>
             <br>
             <div class="comments">
-                {% for commentary in comment %}
-                {{ commentary.commenter_id }}:
-                {{ commentary.comment }}
+                {% for comment in comments %}
+                    {{ comment.commenter_id }}:
+                    {{ comment.comment_body }}
                 {% endfor %}
             </div>
             <br>

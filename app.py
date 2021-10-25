@@ -335,11 +335,12 @@ def detalle_producto(name):
 	comment = Comment.query.filter_by(commented_id = name).all()
 	form = CommentForm()
 	if form.validate_on_submit():
-		new_comment = Comment(commented_id = product,
+		new_comment = Comment(commented_id = product.productname,
 		commenter_id = current_user,
 		ccomment_body = form.comment.data)
 		database.session.add(new_comment)
 		database.session.commit()
+		return redirect(url_for('detalle_producto'))
 
 	if request.method == 'POST' and 'tagid' in request.form:
 		if current_user.is_authenticated:
@@ -375,7 +376,7 @@ def detalle_producto(name):
 		else:
 			return redirect(url_for('login'))
 
-	return render_template("producto.html", product = product, form = form, comment = comment)
+	return render_template("producto.html", product = product, form = form, comments = comment)
 
 @app.route("/admin-dash")
 @login_required
