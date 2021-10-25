@@ -58,7 +58,9 @@
 .quantity,
 .score,
 .wish,
-.buy {
+.buy,
+.comments,
+.submitb {
   display: flex;
   justify-content: center;
   align-items: center;
