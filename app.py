@@ -291,35 +291,39 @@ def carrito():
 @app.route("/menu", methods=['GET', 'POST'])
 def menu():
 	products = Products.query.filter().all()
-	#if form.validate_on_submit():
 	if request.method == 'POST' and 'tagid' in request.form:
-		id_t = request.form["tagid"]
-		price_t = request.form["tagprice"]
-		name_t = request.form['tagname']
-		img_t = request.form['tagimg']
-		new_item = Wish(product_id = id_t,
-		user_id = current_user.username,
-		product_price = price_t,
-		product_name = name_t,
-		product_img = img_t)
-		database.session.add(new_item)
-		database.session.commit()
-		return redirect(url_for('lista'))
+		if current_user.is_authenticated:
+			id_t = request.form["tagid"]
+			price_t = request.form["tagprice"]
+			name_t = request.form['tagname']
+			img_t = request.form['tagimg']
+			new_item = Wish(product_id = id_t,
+			user_id = current_user.username,
+			product_price = price_t,
+			product_name = name_t,
+			product_img = img_t)
+			database.session.add(new_item)
+			database.session.commit()
+			return redirect(url_for('lista'))
+		else:
+			return redirect(url_for('login'))
 
 	if request.method == 'POST' and 'tagidc' in request.form:
-		id_t = request.form["tagidc"]
-		price_t = request.form["tagpricec"]
-		name_t = request.form['tagnamec']
-		img_t = request.form['tagimgc']
-		new_item = Shop(product_id = id_t,
-		user_id = current_user.username,
-		product_price = price_t,
-		product_name = name_t ,
-		product_img = img_t)
-		database.session.add(new_item)
-		database.session.commit()
-		return redirect(url_for('carrito'))
-
+		if current_user.is_authenticated:
+			id_t = request.form["tagidc"]
+			price_t = request.form["tagpricec"]
+			name_t = request.form['tagnamec']
+			img_t = request.form['tagimgc']
+			new_item = Shop(product_id = id_t,
+			user_id = current_user.username,
+			product_price = price_t,
+			product_name = name_t ,
+			product_img = img_t)
+			database.session.add(new_item)
+			database.session.commit()
+			return redirect(url_for('carrito'))
+		else:
+			return redirect(url_for('login'))
 	return render_template("carta.html", products = products)
 
 @app.route("/plato")
