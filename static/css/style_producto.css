@@ -1,0 +1,65 @@
+.title {
+    text-align: center;
+    font-size: 35px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-left {
+  width: 50%;
+  height: 100vh;
+  margin: 5px;
+  padding: 5px;
+}
+
+.flex-right {
+  width: 50%;
+  margin: 5px;
+  padding: 5px;
+}
+
+.checked {
+  color: orange;
+}
+
+#tagprice,
+#tagid,
+#tagname,
+#tagimg,
+#tagidc,
+#tagpricec,
+#tagnamec,
+#tagimgc {
+  display: none;
+}
+
+#buttond {
+  cursor: pointer;
+  border-radius: 10px;
+  height: 50px;
+  width: 200px;
+  background-color: rgb(155, 56, 32);
+  color: white;
+}
+#buttond:hover {
+  opacity: 0.6;
+}
+
+.image {
+  width: 650px;
+  border-radius: 15px;
+}
+
+.name,
+.price,
+.quantity,
+.score,
+.wish,
+.buy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

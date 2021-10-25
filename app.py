@@ -288,9 +288,12 @@ def carrito():
 		database.session.commit()
 	return render_template("carrito.html", products = products)
 
-@app.route("/menu", methods=['GET', 'POST'])
+@app.route("/menu-productos", methods=['GET', 'POST'])
 def menu():
 	products = Products.query.filter().all()
+	if request.method == 'POST' and 'tagnamed' in request.form:
+		name_p = request.form['tagnamed']
+		return redirect(url_for('detalle_producto', name = name_p))
 	if request.method == 'POST' and 'tagid' in request.form:
 		if current_user.is_authenticated:
 			id_t = request.form["tagid"]
@@ -324,11 +327,46 @@ def menu():
 			return redirect(url_for('carrito'))
 		else:
 			return redirect(url_for('login'))
-	return render_template("carta.html", products = products)
+	return render_template("menu.html", products = products)
 
-@app.route("/plato")
-def plato():
-	return render_template("plato.html")
+@app.route("/menu-productos/producto/<name>")
+def detalle_producto(name):
+	product = Products.query.filter_by(productname = name).first()
+	if request.method == 'POST' and 'tagid' in request.form:
+		if current_user.is_authenticated:
+			id_t = request.form["tagid"]
+			price_t = request.form["tagprice"]
+			name_t = request.form['tagname']
+			img_t = request.form['tagimg']
+			new_item = Wish(product_id = id_t,
+			user_id = current_user.username,
+			product_price = price_t,
+			product_name = name_t,
+			product_img = img_t)
+			database.session.add(new_item)
+			database.session.commit()
+			return redirect(url_for('lista'))
+		else:
+			return redirect(url_for('login'))
+
+	if request.method == 'POST' and 'tagidc' in request.form:
+		if current_user.is_authenticated:
+			id_t = request.form["tagidc"]
+			price_t = request.form["tagpricec"]
+			name_t = request.form['tagnamec']
+			img_t = request.form['tagimgc']
+			new_item = Shop(product_id = id_t,
+			user_id = current_user.username,
+			product_price = price_t,
+			product_name = name_t ,
+			product_img = img_t)
+			database.session.add(new_item)
+			database.session.commit()
+			return redirect(url_for('carrito'))
+		else:
+			return redirect(url_for('login'))
+
+	return render_template("producto.html", product = product)
 
 @app.route("/admin-dash")
 @login_required
@@ -534,9 +572,9 @@ def resetear_contra(token):
         return redirect(url_for('home'))
     return render_template('resetearcontra.html', title = 'Reset Password', form = reset_form)
 
-@app.route("/ajustes")
-def ajustes():
-	return render_template("ajustes.html")
+@app.route("/equipo")
+def equipo():
+	return render_template("equipo.html")
 
 if __name__ == "__main__":
 	app.run(debug = True)

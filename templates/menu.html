@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Carta {% endblock %}
+{% block title %} Menu-productos {% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style_menu.css') }}">
@@ -37,11 +37,16 @@
             </div>
             <div class="details">
                 <h3>
-                    Detalles del producto:
+                    Detalles del producto: Da click en el siguiente botón
                 </h3>
-                <p>
-                    {{ product.details }}
-                </p>
+                <div class="details_1">
+                    <p>
+                    <form action="" method="POST">
+                        <input value="{{ product.productname }}" readonly name="tagnamed" id="tagnamed">
+                        <input type="submit" value="Detalles producto" class="form-control btn btn-primary " name="" id="buttonde">
+                    </form>
+                    </p>
+                </div>
             </div>
         </div>
         <div class="column">

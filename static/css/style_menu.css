@@ -56,7 +56,20 @@
 #tagidc,
 #tagpricec,
 #tagnamec,
-#tagimgc {
+#tagimgc,
+#tagnamed {
   display: none;
 }
 
+.details_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#buttonde {
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}

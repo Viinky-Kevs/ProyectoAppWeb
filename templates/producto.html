@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %} Detalle-producto {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_producto.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">
+        Detalles de producto
+    </h1>
+    <div class="flex-container">
+        <div class="flex-left">
+            <div class="image">
+                <img src="{{ url_for('static', filename='images_plates/' + product.image_prod) }}" class="image">
+            </div>
+            <br>
+            <br>
+            <div class="details">
+                <h2>
+                    {{ product.details }}
+                </h2>
+            </div>
+            <div class="comments">
+
+            </div>
+        </div>
+        <div class="flex-right">
+            <div class="name">
+                <h1>    
+                    {{ product.productname }}
+                </h1>
+            </div>
+            <br>
+            <div class="score">
+                {% if product.score == 1 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                {% elif product.score == 2 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                {% elif product.score == 3 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                {% elif product.score == 4 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                {% elif product.score == 5 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="price">
+                <strong>
+                    Precio = ${{ product.price }}
+                </strong>
+            </div>
+            <br>
+            <div class="quantity">
+                <strong>
+                    Cantidades disponibles = {{ product.quantity }} (unidades)
+                </strong>
+            </div>
+            <br>
+            <br>
+            <div class="wish">
+                <form action="" method="POST">
+                    <input value="" readonly name="tagid" id="tagid">
+                    <input value="" name="tagprice" id="tagprice">
+                    <input value="" readonly name="tagname" id="tagname">
+                    <input value="" readonly name="tagimg" id="tagimg">
+                    <input type="submit" value="Lo quiero!" class="form-control btn btn-primary " name="" id="buttond">
+                </form>
+                <br>
+            </div>
+            <br>
+            <div class="buy">
+                <form action="" method="POST">
+                    <input value="" readonly name="tagidc" id="tagidc">
+                    <input value="" name="tagpricec" id="tagpricec">
+                    <input value="" readonly name="tagnamec" id="tagnamec">
+                    <input value="" readonly name="tagimgc" id="tagimgc">
+                    <input type="submit" value="Lo compro!" class="form-control btn btn-primary " name="" id="buttond">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
