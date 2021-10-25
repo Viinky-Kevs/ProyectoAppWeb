@@ -45,3 +45,31 @@ img {
 .user {
     padding: 30px;
 }
+
+#tagidcd,
+#tagnamecd {
+  display: none;
+}
+
+#buttonds {
+    cursor: pointer;
+    width: 50px;
+    background-color: #800000;
+    color: white;
+    border-radius: 10px;
+}
+
+.image,
+.p_id {
+    display: flex;
+    justify-content: center;
+}
+
+.pay {
+  cursor: pointer;
+    width: 150px;
+    height: 50px;
+    background-color: #800000;
+    color: white;
+    border-radius: 10px;
+}

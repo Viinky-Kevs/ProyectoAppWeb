@@ -55,9 +55,19 @@
                     <td>{{ product.product_name }}</td>
                     <td>{{ product.product_price }}</td>
                     <td>
-                        <img src="{{ url_for('static', filename='images_plates/' + product.product_img) }}" alt="">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename='images_plates/' + product.product_img) }}" alt="">
+                        </div>
                     </td>
-                    <td></td>
+                    <td>
+                        <div class="p_id">
+                            <a href="#">
+                                <button type="button" class="pay">
+                                    Ir a pagar
+                                </button>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
