@@ -332,6 +332,7 @@ def menu():
 @app.route("/menu-productos/producto/<name>")
 def detalle_producto(name):
 	product = Products.query.filter_by(productname = name).first()
+	form = CommentForm()
 	if request.method == 'POST' and 'tagid' in request.form:
 		if current_user.is_authenticated:
 			id_t = request.form["tagid"]
@@ -366,7 +367,7 @@ def detalle_producto(name):
 		else:
 			return redirect(url_for('login'))
 
-	return render_template("producto.html", product = product)
+	return render_template("producto.html", product = product, form = form)
 
 @app.route("/admin-dash")
 @login_required

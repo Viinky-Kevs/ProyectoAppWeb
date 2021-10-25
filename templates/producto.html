@@ -24,8 +24,14 @@
                     {{ product.details }}
                 </h2>
             </div>
+            <br>
             <div class="comments">
-
+                {{ form.hidden_tag() }}
+                {{ form.comment }}
+            </div>
+            <br>
+            <div class="submitb">
+                {{ form.submit }}
             </div>
         </div>
         <div class="flex-right">
