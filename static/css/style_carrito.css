@@ -4,36 +4,44 @@
     text-align: center;
 }
 
-.table {
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.table_1, th {
-    border:1px solid black;
+.table-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.table_1 .image {
-    width: 50px;
-}
-.shop-button {
-  position: absolute;
-    display: flex;
-    justify-content: center;
-    left: 82%;
+#tableu {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.button {
-    background-color: #800000; 
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
+#tableu td, 
+#tableu th {
+  border: 1px solid rgb(14, 13, 13);
+  padding: 8px;
+}
+
+#tableu tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+
+#tableu tr:hover {
+  background-color: #ddd;
+}
+
+#tableu th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #800000;
+  color: white;
+}
+
+img {
+    width: 300px;
+}
+
+.user {
+    padding: 30px;
 }

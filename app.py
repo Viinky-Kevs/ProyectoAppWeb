@@ -86,15 +86,15 @@ class Wish(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
 	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
 	product_price = database.Column(database.Integer, database.ForeignKey('products.price'))
-	user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
-	product_name = database.Column(database.Integer, database.ForeignKey('products.productname'))
+	user_id = database.Column(database.String(30), database.ForeignKey('user.username'))
+	product_name = database.Column(database.String(30), database.ForeignKey('products.productname'))
 	product_img = database.Column(database.Integer, database.ForeignKey('products.image_prod'))
 
 class Shop(database.Model):
 	id = database.Column(database.Integer, primary_key=True)
 	product_id = database.Column(database.Integer, database.ForeignKey('products.id'))
-	user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
-	product_name = database.Column(database.Integer, database.ForeignKey('products.productname'))
+	user_id = database.Column(database.String(30), database.ForeignKey('user.username'))
+	product_name = database.Column(database.String(30), database.ForeignKey('products.productname'))
 	product_price = database.Column(database.Integer, database.ForeignKey('products.price'))
 	product_img = database.Column(database.Integer, database.ForeignKey('products.image_prod'))
 
@@ -254,12 +254,14 @@ def busqueda():
 @app.route("/lista-de-deseos")
 @login_required
 def lista():
-	return render_template("listadeseos.html")
+	products = Wish.query.filter(Wish.user_id == current_user.username)
+	return render_template("listadeseos.html", products = products)
 
 @app.route("/carrito-de-compras")
 @login_required
 def carrito():
-	return render_template("carrito.html")
+	products = Shop.query.filter(Shop.user_id == current_user.username)
+	return render_template("carrito.html", products = products)
 
 @app.route("/menu", methods=['GET', 'POST'])
 def menu():
