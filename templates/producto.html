@@ -89,6 +89,14 @@
             </div>
             <br>
             <br>
+            <div class="comments">
+                {% for commentary in comment %}
+                {{ commentary.commenter_id }}:
+                {{ commentary.comment }}
+                {% endfor %}
+            </div>
+            <br>
+            <br>
             <div class="wish">
                 <form action="" method="POST">
                     <input value="" readonly name="tagid" id="tagid">

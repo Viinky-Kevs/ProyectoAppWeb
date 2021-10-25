@@ -60,7 +60,8 @@
 .wish,
 .buy,
 .comments,
-.submitb {
+.submitb,
+.comments {
   display: flex;
   justify-content: center;
   align-items: center;

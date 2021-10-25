@@ -69,8 +69,8 @@ class User(database.Model, UserMixin):
 
 class Comment(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    commented_id = database.Column(database.Integer, database.ForeignKey('products.id'))
-    commenter_id = database.Column(database.Integer, database.ForeignKey('user.id'))
+    commented_id = database.Column(database.String(30), database.ForeignKey('products.productname'))
+    commenter_id = database.Column(database.String(30), database.ForeignKey('user.username'))
     comment_body = database.Column(database.String(200))
 
 class Products(database.Model):
@@ -332,7 +332,15 @@ def menu():
 @app.route("/menu-productos/producto/<name>")
 def detalle_producto(name):
 	product = Products.query.filter_by(productname = name).first()
+	comment = Comment.query.filter_by(commented_id = name).all()
 	form = CommentForm()
+	if form.validate_on_submit():
+		new_comment = Comment(commented_id = product,
+		commenter_id = current_user,
+		ccomment_body = form.comment.data)
+		database.session.add(new_comment)
+		database.session.commit()
+
 	if request.method == 'POST' and 'tagid' in request.form:
 		if current_user.is_authenticated:
 			id_t = request.form["tagid"]
@@ -367,7 +375,7 @@ def detalle_producto(name):
 		else:
 			return redirect(url_for('login'))
 
-	return render_template("producto.html", product = product, form = form)
+	return render_template("producto.html", product = product, form = form, comment = comment)
 
 @app.route("/admin-dash")
 @login_required
