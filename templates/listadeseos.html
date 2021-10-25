@@ -27,6 +27,7 @@
                         <input type="checkbox" onclick="checkAll(this)">
                     </th>
                     <th>id</th>
+                    <th>Eliminar</th>
                     <th>Nombre</th>
                     <th>Precio (unidad)</th>
                     <th>Foto producto</th>
@@ -40,6 +41,15 @@
                     <td>
                         <div class="p_id">
                             {{ product.product_id }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p_id">
+                            <form action="" method="POST">
+                                <input value="{{ product.product_id }}" readonly name="tagidcd" id="tagidcd">
+                                <input value="{{ product.product_name }}" readonly name="tagnamecd" id="tagnamecd">
+                                <input type="submit" value="&#10007;" class="form-control btn btn-primary " name="" id="buttonds">
+                            </form>
                         </div>
                     </td>
                     <td>

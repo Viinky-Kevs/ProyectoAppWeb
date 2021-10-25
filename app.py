@@ -251,16 +251,41 @@ def busqueda():
 		return render_template("buscar.html", products = products, tag = tag)
 	return render_template("buscar.html")
 
-@app.route("/lista-de-deseos")
+@app.route("/lista-de-deseos", methods=['GET', 'POST'])
 @login_required
 def lista():
 	products = Wish.query.filter(Wish.user_id == current_user.username)
+	if request.method == 'POST' and 'tagidc' in request.form:
+		id_t = request.form["tagidc"]
+		price_t = request.form["tagpricec"]
+		name_t = request.form['tagnamec']
+		img_t = request.form['tagimgc']
+		new_item = Shop(product_id = id_t,
+		user_id = current_user.username,
+		product_price = price_t,
+		product_name = name_t ,
+		product_img = img_t)
+		database.session.add(new_item)
+		database.session.commit()
+		return redirect(url_for('carrito'))
+	if request.method == 'POST' and 'tagidcd' in request.form:
+		id_t = request.form["tagidcd"]
+		name_t = request.form['tagnamecd']
+		product_d = Wish.query.filter_by(product_name = name_t).first()
+		database.session.delete(product_d)
+		database.session.commit()
 	return render_template("listadeseos.html", products = products)
 
-@app.route("/carrito-de-compras")
+@app.route("/carrito-de-compras", methods=['GET', 'POST'])
 @login_required
 def carrito():
 	products = Shop.query.filter(Shop.user_id == current_user.username)
+	if request.method == 'POST' and 'tagidcd' in request.form:
+		id_t = request.form["tagidcd"]
+		name_t = request.form['tagnamecd']
+		product_d = Shop.query.filter_by(product_name = name_t).first()
+		database.session.delete(product_d)
+		database.session.commit()
 	return render_template("carrito.html", products = products)
 
 @app.route("/menu", methods=['GET', 'POST'])
