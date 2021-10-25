@@ -3,6 +3,11 @@
     font-size: 35px;
 }
 
+.title_1 {
+    text-align: center;
+    font-size: 25px;
+}
+
 .flex-container {
   display: flex;
   flex-direction: row;

@@ -329,18 +329,18 @@ def menu():
 			return redirect(url_for('login'))
 	return render_template("menu.html", products = products)
 
-@app.route("/menu-productos/producto/<name>")
+@app.route("/menu-productos/producto/<name>", methods =['GET', 'POST'])
 def detalle_producto(name):
 	product = Products.query.filter_by(productname = name).first()
 	comment = Comment.query.filter_by(commented_id = name).all()
 	form = CommentForm()
 	if form.validate_on_submit():
 		new_comment = Comment(commented_id = product.productname,
-		commenter_id = current_user,
-		ccomment_body = form.comment.data)
+		commenter_id = current_user.username,
+		comment_body = form.comment.data)
 		database.session.add(new_comment)
 		database.session.commit()
-		return redirect(url_for('detalle_producto'))
+		return redirect(url_for('menu'))
 
 	if request.method == 'POST' and 'tagid' in request.form:
 		if current_user.is_authenticated:

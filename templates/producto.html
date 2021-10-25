@@ -26,13 +26,13 @@
             </div>
             <br>
             <div class="comments">
-                {{ form.hidden_tag() }}
-                {{ form.comment }}
+                <form action="" method="POST">
+                    {{ form.hidden_tag() }}
+                    {{ form.comment }}<br>
+                    {{ form.submit }}
+                </form>
             </div>
             <br>
-            <div class="submitb">
-                {{ form.submit }}
-            </div>
         </div>
         <div class="flex-right">
             <div class="name">
@@ -89,9 +89,16 @@
             </div>
             <br>
             <br>
+            <div class="Title_1">
+                <h1 class="title_1">
+                    Comentarios productos
+                </h1>
+            </div>
             <div class="comments">
                 {% for comment in comments %}
-                    {{ comment.commenter_id }}:
+                    <strong>
+                        {{ comment.commenter_id }}:
+                    </strong>
                     {{ comment.comment_body }}
                 {% endfor %}
             </div>
