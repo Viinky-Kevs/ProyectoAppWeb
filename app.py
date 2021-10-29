@@ -233,7 +233,7 @@ def save_image(image):
 	i.save(picture_path)
 	return picture_name
 
-#Definición de rutas
+# Definición de rutas
 @app.route("/")
 def home():
 	return render_template("home.html")
