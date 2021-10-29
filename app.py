@@ -35,10 +35,6 @@ app.config['MAIL_USERNAME'] = ''
 app.config['MAIL_PASSWORD'] = ''
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-app.config['MSEARCH_INDEX_NAME'] = 'msearch'
-app.config['MSEARCH_PRIMARY_KEY'] = 'id'
-app.config['MSEARCH_ENABLE'] = True
-#app.config['MSEARCH_LOGGER'] = logging.DEBUG
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 login_manager = LoginManager()
