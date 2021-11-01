@@ -1,12 +1,6 @@
-# ProyectoAppWeb - Uninorte
+# Productos horneados Auntie Anne's - Uninorte
 
 Elaborado por:
-
-### Johan Steven Burgos Arias
-
-### Luis Torres Hoyos
-
-### Andrés Viloria de la Torre
 
 ### Lina Florez Albanes (Diseño y Front End)
 
